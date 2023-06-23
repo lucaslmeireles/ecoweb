@@ -1,35 +1,15 @@
+'use client'
+import { Grid } from '@/components/grid'
+import { GridPosts } from '@/components/gridPost'
 import { GridCard } from '@/components/gridcard'
 import Image from 'next/image'
 
 export default function Home() {
   return (
     <main className="flex min-h-screen ">
-      <div className=' flex flex-col w-full p-16'>
-      <div className=' flex flex-col w-full mb-8'>
-        <h2 className='text-2xl font-semibold pb-6'>Popular</h2>
-      </div>
-      
-      <div className=' flex flex-col w-full mb-8'>
-        <h2 className='text-2xl font-semibold pb-6'>Popular</h2>
-        <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        </div>
-      </div><div className=' flex flex-col w-full mb-8'>
-        <h2 className='text-2xl font-semibold pb-6'>Popular</h2>
-        <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        <GridCard/>
-        </div>
-      </div>
-    </div>
-    <div className='ml-8 flex flex-col pr-16 pt-16'>
+    <div className='ml-8 flex pr-16 pt-16'>
+      <Grid featuredCategory={['Lucas', 'Lucio']} posts={[{posts:{category:'Lucas',title:'Lucas',id:123, image:'https://th.bing.com/th/id/OIP.8DMjS2i4JfAiA-Lg2WN7vQHaHa?w=178&h=180&c=7&r=0&o=5&pid=1.7'}}]}/>
+      <div className='flex flex-col'>
       <div className="w-[240px] h-[389px] relative ">
           <div className="w-60 h-[389px]  bg-zinc-300 rounded-3xl" />
           <div className="w-[123px] h-[123px] left-[58px] top-[29px] absolute bg-red-600 rounded-full" />
@@ -45,6 +25,8 @@ export default function Home() {
         <div className="left-[107px] top-[23px] absolute text-white text-[15px] font-medium">Volta Redonda</div>
         <div className="w-[62px] h-[62px] left-[25px] top-[19px] absolute bg-yellow-400 rounded-full" />
         </div>
+      </div>
+
       </div>
     </main>
   )
