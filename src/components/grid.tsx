@@ -1,21 +1,21 @@
-import React from "react"
+import React, { useState } from "react"
 import { GridCard, GridCardProps } from "./gridcard"
-import { GridPosts, GridPostsProps } from "./gridPost"
 
 type GridProps = {
-    featuredCategory: string[];
-    posts: GridCardProps[];
+    data: GridCardProps[]
 }
 
+
 export const Grid = (data: GridProps) => {
-    const {featuredCategory, posts} = data
+    //db pegar os posts daquela featured category
     return (
         <div className=' flex flex-col w-full p-16'>
-            {featuredCategory.map((category) => {
+            {data.data.map((post) => {
                 return (
                     <div key={1+1} className=' flex flex-col w-full mb-8'>
-                        <h2 key={1+1} className='text-2xl font-semibold pb-6'>{category}</h2>
-                        <GridPosts posts={posts} key={1+1}/>
+                        <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
+                            <GridCard title={post.title} category={post.category} image={post.image} key={post.id}/>
+                        </div>
                     </div>
                 )
             })}

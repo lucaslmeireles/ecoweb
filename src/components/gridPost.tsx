@@ -1,7 +1,7 @@
 import { GridCard, GridCardProps } from "./gridcard"
 
 export type GridPostsProps = {
-        posts: any;
+        posts: GridCardProps[];
 }
 
 

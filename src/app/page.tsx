@@ -1,14 +1,21 @@
 'use client'
 import { Grid } from '@/components/grid'
-import { GridPosts } from '@/components/gridPost'
-import { GridCard } from '@/components/gridcard'
+import { GetStaticProps } from 'next'
 import Image from 'next/image'
 
-export default function Home() {
+
+export default async function Home() { 
+    const res = await fetch('https://eco-api.vercel.app/post', {
+      method: 'GET',
+  
+    })
+    const data = await res.json()
   return (
     <main className="flex min-h-screen ">
     <div className='ml-8 flex pr-16 pt-16'>
-      <Grid featuredCategory={['Lucas', 'Lucio']} posts={[{posts:{category:'Lucas',title:'Lucas',id:123, image:'https://th.bing.com/th/id/OIP.8DMjS2i4JfAiA-Lg2WN7vQHaHa?w=178&h=180&c=7&r=0&o=5&pid=1.7'}}]}/>
+    <div className=' flex flex-col w-full p-16'>
+            <Grid data={data} />
+        </div>      
       <div className='flex flex-col'>
       <div className="w-[240px] h-[389px] relative ">
           <div className="w-60 h-[389px]  bg-zinc-300 rounded-3xl" />
@@ -31,3 +38,6 @@ export default function Home() {
     </main>
   )
 }
+
+
+

@@ -2,7 +2,6 @@ export type GridCardProps = {
         title: string;
         category: string;
         image: string;
-        id:number
 }
 
 
