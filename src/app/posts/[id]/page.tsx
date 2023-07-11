@@ -1,4 +1,4 @@
-export const getPostById = async (id:string) => {
+const getPostById = async (id:string) => {
     const data = await fetch(`https://eco-api.vercel.app/post/${id}`)
     const post = await data.json()
     return post.data

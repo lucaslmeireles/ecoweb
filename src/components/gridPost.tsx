@@ -12,7 +12,7 @@ export const GridPosts = (data: GridPostsProps) => {
             <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
                 {posts.map((post => {
                     return (
-                        <GridCard title={post.title} category={post.category} image={post.image} key={post.id}/>
+                        <GridCard id={post.id} title={post.title} category={post.category} image={post.image} key={post.id}/>
                     )
                 }))}
             </div>
