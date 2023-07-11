@@ -14,7 +14,7 @@ export const Grid = (data: GridProps) => {
                 return (
                     <div key={1+1} className=' flex flex-col w-full mb-8'>
                         <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
-                            <GridCard title={post.title} category={post.category} image={post.image} key={post.id}/>
+                            <GridCard id={post.id}title={post.title} category={post.category} image={post.image} key={post.id}/>
                         </div>
                     </div>
                 )

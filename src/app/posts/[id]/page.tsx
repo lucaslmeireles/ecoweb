@@ -9,11 +9,8 @@ export const getPostById = async (id:string) => {
 export default async function PostDetail({params} : {params: {id: string}}) {
     const post = await getPostById(params.id)
     return (
-        <>
-        <p>{post.title}</p>
-        <p>{post.author.email}</p>
-        <p>{post.small_text}</p>
-        <p>{post.content}</p>
-        </>
+        <div className="flex w-full h-full border bg-slate-300">
+            <p>{post.title}</p>
+        </div>
     )
 }

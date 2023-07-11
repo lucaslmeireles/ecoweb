@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 export type GridCardProps = {
+        id:number;
         title: string;
         category: string;
         image: string;
@@ -6,7 +9,7 @@ export type GridCardProps = {
 
 
 export const GridCard = (data: GridCardProps) => {
-    const {title, category, image} = data
+    const {title, category, image,id} = data
     return (
         <div className='flex flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg'>
             <img src={image} className='h-full w-full object-cover'/>
@@ -20,7 +23,10 @@ export const GridCard = (data: GridCardProps) => {
                     </small>
                 </div>
                 <div className='h-10 w-10 mr-2 hover:border rounded-full border-slate-300 shadow-inner flex items-center justify-center'>
+                    <Link href={`/posts/${id}`} >
                     <img src='https://cdn.icon-icons.com/icons2/933/PNG/512/keyboard-right-arrow-button-1_icon-icons.com_72690.png' className='h-6 w-6'/>
+                    </Link>
+                    
                 </div>
         </div>
         </div>
