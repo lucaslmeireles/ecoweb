@@ -4,12 +4,17 @@ import { GetStaticProps } from 'next'
 import Image from 'next/image'
 
 
-export default async function Home() { 
-    const res = await fetch('https://eco-api.vercel.app/post', {
+async function getPosts() {
+  const res = await fetch('https://eco-api.vercel.app/post', {
       method: 'GET',
   
     })
-    const data = await res.json()
+  const data = await res.json()
+  return data
+}
+
+export default async function Home() { 
+  const data = await getPosts()
   return (
     <main className="flex min-h-screen ">
     <div className='ml-8 flex pr-16 pt-16'>
