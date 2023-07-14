@@ -1,14 +1,10 @@
-'use client'
 import { Grid } from '@/components/grid'
-import { GetStaticProps } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 
 
 async function getPosts() {
-  const res = await fetch('https://eco-api.vercel.app/post', {
-      method: 'GET',
-  
-    })
+  const res = await fetch('https://eco-api.vercel.app/post')
   const data = await res.json()
   return data
 }
@@ -17,10 +13,10 @@ export default async function Home() {
   const data = await getPosts()
   return (
     <main className="flex min-h-screen ">
-    <div className='ml-8 flex pr-16 pt-16'>
-    <div className=' flex flex-col w-full p-16'>
-            <Grid data={data} />
-        </div>      
+    <div className='ml-8 flex pr-16 pt-12'>
+    <div className=' flex flex-col w-full px-12'>
+            <Grid data={data}/>
+    </div>      
       <div className='flex flex-col'>
       <div className="w-[240px] h-[117px] relative mt-5 pr-16 pt-16 ">
         <div className="w-[240px] h-[117px] left-[0px] top-[0px] absolute bg-sky-500 rounded-[25px]" />

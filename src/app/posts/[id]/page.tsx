@@ -28,7 +28,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
                     <img></img>
                 </div>
             </div>
-            <span className="border my-3 border-slate-950 border-[0.3px]"></span>
+            <span className=" my-3 border-slate-950 border-[0.3px]"></span>
             <section className="Content pt-6 my-5 px-5">
                 <p className="text-slate-900 text-base justify-normal">{post.content} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem quas odio pariatur officia alias maiores suscipit nobis laudantium. Obcaecati voluptatum ex facere ratione. Error ea in consequuntur laudantium dolorem. Quasi!</p>
             </section>
