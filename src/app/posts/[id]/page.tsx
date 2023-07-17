@@ -1,5 +1,28 @@
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+
+export type  PostData = {
+    id: string;
+    title: string;
+    content: string;
+    tags: string;
+    createdAt: string;
+    updatedAt: string;
+    author: {
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+    };
+    Comment: {
+        id: string;
+        postId: string;
+        content: string;
+    }
+
+}
+
 const getPostById = async (id:string) => {
-    const data = await fetch(`https://eco-api.vercel.app/post/${id}`)
+    const data = await fetch(`https://eco-api.vercel.app/post/${id}`, {next : {revalidate : 60*10}})
     const post = await data.json()
     return post.data
 }
@@ -30,9 +53,14 @@ export default async function PostDetail({params} : {params: {id: string}}) {
             </div>
             <span className=" my-3 border-slate-950 border-[0.3px]"></span>
             <section className="Content pt-6 my-5 px-5">
-                <p className="text-slate-900 text-base justify-normal">{post.content} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem quas odio pariatur officia alias maiores suscipit nobis laudantium. Obcaecati voluptatum ex facere ratione. Error ea in consequuntur laudantium dolorem. Quasi!</p>
+                <p className="text-slate-900 text-base justify-normal">
+                    <ReactMarkdown>{post.content}</ReactMarkdown>
+                </p>
             </section>
             </div>
+            <section className="Comments w-4/6">
+                <p>disqus</p>
+            </section>
         </div>
     )
 }

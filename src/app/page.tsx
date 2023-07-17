@@ -9,8 +9,15 @@ async function getPosts() {
   return data
 }
 
+async function getWeather() {
+  const res = await fetch('https://api.weatherapi.com/v1/current.json?q=Volta Redonda&key=834b6a1ff61a4d34b7c170901231707')
+  const data = await res.json()
+  return data.current
+}
 export default async function Home() { 
   const data = await getPosts()
+  
+  const weather = await getWeather()
   return (
     <main className="flex min-h-screen ">
     <div className='ml-8 flex pr-16 pt-12'>
@@ -18,14 +25,16 @@ export default async function Home() {
             <Grid data={data}/>
     </div>      
       <div className='flex flex-col'>
-      <div className="w-[240px] h-[117px] relative mt-5 pr-16 pt-16 ">
-        <div className="w-[240px] h-[117px] left-[0px] top-[0px] absolute bg-sky-500 rounded-[25px]" />
-        <div className="w-[99px] h-[28px] left-[107px] top-[77px] absolute bg-green-500 rounded-[30px]" />
-        <div className="left-[119px] top-[82px] absolute text-white text-[15px] font-medium">IQ 45 BOM</div>
-        <div className="left-[107px] top-[50px] absolute text-white text-[15px] font-medium">23 Graus</div>
-        <div className="left-[107px] top-[23px] absolute text-white text-[15px] font-medium">Volta Redonda</div>
-        <div className="w-[62px] h-[62px] left-[25px] top-[19px] absolute bg-yellow-400 rounded-full" />
-        </div>
+      <div className="w-80 h-14 px-1 flex justify-between bg-slate-300 bg-neutral-600 rounded-lg">
+        <Image alt="img-weather"src={`http://${weather.condition.icon}`} width={50} height={50} />
+          <div className='flex  mx-3 flex-col'>
+          <div className="w-20 h-3 py-2 text-teal-50 text-base font-medium">{weather.temp_c} ºC</div>
+          <div className="w-40 h-3 py-2 text-teal-50 text-base font-medium">Volta Redonda</div>
+          </div>
+          <div className= {`w-20 h-5 flex self-end  py-3 mb-2 justify-center rounded-2xl items-center bg-blue-400 `}>
+          <div className=" text-white text-base font-medium">CO2</div>
+          </div>
+      </div>      
       </div>
 
       </div>
