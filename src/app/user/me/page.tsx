@@ -1,7 +1,11 @@
+export async function GetUser() {
 
+}
 
-export default function UserMe() {
+export default async function UserMe() {
     return (
-        <p>OI</p>
+        <main>
+            
+        </main>
     )
 }

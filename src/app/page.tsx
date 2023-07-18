@@ -25,8 +25,8 @@ export default async function Home() {
             <Grid data={data}/>
     </div>      
       <div className='flex flex-col'>
-      <div className="w-80 h-14 px-1 flex justify-between bg-slate-300 bg-neutral-600 rounded-lg">
-        <Image alt="img-weather"src={`http://${weather.condition.icon}`} width={50} height={50} />
+      <div className="w-80 h-14 px-1 flex justify-between bg-neutral-600 rounded-lg">
+        <Image alt="img-weather"src={`http://${weather.condition.icon}`} width={55} height={50} />
           <div className='flex  mx-3 flex-col'>
           <div className="w-20 h-3 py-2 text-teal-50 text-base font-medium">{weather.temp_c} ºC</div>
           <div className="w-40 h-3 py-2 text-teal-50 text-base font-medium">Volta Redonda</div>
