@@ -2,6 +2,7 @@ import Link from 'next/link'
 import './globals.css'
 import { Inter, Quicksand } from 'next/font/google'
 import {BiSearchAlt} from 'react-icons/bi'
+import SearchInput from '@/searchInput'
 const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
 export const metadata = {
@@ -16,14 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <meta charSet="utf-8" />
       <body className={inter.className}>
         <nav className='h-16 bg-white drop-shadow-md flex justify-between items-center align-middle'>
           <p className={`${quicksand.className} font-semibold text-4xl text-emerald-800 mx-3`}>
           ECO</p>
-          <div className='flex justify-between px-3 align-center place-items-centers w-1/4 h-7 bg-slate-600 rounded-lg'>
-            <input type='text' className='text-teal-50 bg-slate-600 text-base focus:border border-teal-300 shadow-md' placeholder='Buscar'/>
-            <BiSearchAlt width={'1.2em'}color='rgb(240 253 250)'/>
-          </div>
+          <SearchInput/>
           <div className='flex space-x-2'>
           <ul>
             <li>Write</li>

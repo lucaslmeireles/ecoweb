@@ -19,6 +19,7 @@ export default async function Home() {
   
   const weather = await getWeather()
   return (
+    <>
     <main className="flex min-h-screen ">
     <div className='ml-8 flex pr-16 pt-12'>
     <div className=' flex flex-col w-full px-12'>
@@ -39,6 +40,7 @@ export default async function Home() {
 
       </div>
     </main>
+    </>
   )
 }
 
