@@ -2,7 +2,7 @@ import Link from 'next/link'
 import './globals.css'
 import { Inter, Quicksand } from 'next/font/google'
 import {BiSearchAlt} from 'react-icons/bi'
-import SearchInput from '@/searchInput'
+import SearchInput from './searchInput'
 const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
 export const metadata = {
