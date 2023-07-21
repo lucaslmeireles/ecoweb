@@ -18,12 +18,7 @@ const Editor: EditorWyiwgt = dynamic(() => import('react-draft-wysiwyg').then(mo
 })
 
 
-function MyEditor() {
-    const [editorState, setEditorState] = useState(EditorState.createEmpty())
-    const onEditorStateChange = (editorState : EditorState) => {
-        console.log(editorState)
-        setEditorState(editorState)
-    }
+function MyEditor({editorState, onEditorStateChange}) {
     return (
         <div className='bg-slate-50 py-4'>
             <Editor 

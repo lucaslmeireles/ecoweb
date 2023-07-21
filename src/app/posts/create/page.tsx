@@ -3,14 +3,38 @@ import React, { useState } from "react";
 import { BiWorld } from "react-icons/bi";
 import dynamic from "next/dynamic";
 import MyEditor from "./myEditor";
+import { EditorState, convertToRaw } from "draft-js";
+
 
 
 export default function CreatePost() {
-    const sendPost =  async (e: React.FormEvent) => {
-        e.preventDefault()
-        const title = e.target.title.value
-        const tags = e.target.tags.value
-    
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+    const onEditorStateChange = (editorState : EditorState) => {
+        console.log(editorState)
+        setEditorState(editorState)
+    }
+    const sendPost =  async (event: React.FormEvent) => {
+        event.preventDefault()
+        const tags = event.target.tags.value as string
+        const title = event.target.title.value as string
+        const content = editorState.getCurrentContent()
+        const contentJson = JSON.stringify(convertToRaw(content))
+        const body = {
+            title,
+            small_text: 'oi',
+            tags,
+            content: contentJson
+        }
+        const res = await fetch('https://eco-api.vercel.app/post/create', {
+            method: 'POST',
+            headers: {
+                "Access-Control-Allow-Headers": "*",
+                "Authorization" : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJpYXQiOjE2ODk5NTExMjAsImV4cCI6MTY4OTk1MjAyMH0.p7_evu3Vm5-zD7WtQ4jC1NHUz0cVgIDBzwrge1rF3U8',
+                "Content-Type": "application/json",
+            },
+        })
+        const reponse = await res.json()
+        console.log(reponse)
     }
     return (
         <main className="mx-5 px-3 my-3 py-2">
@@ -18,16 +42,16 @@ export default function CreatePost() {
             <small className="text-teal-600 text-base font-normal  flex algin-middle items-center">Share with the world <BiWorld className="mx-1"/></small>
 
             <div className="flex flex-col mt-7">
-                <form className="flex flex-col bg-slate-100 w-11/12 mx-auto space-y-3"action="" method="post" onSubmit={sendPost}>
+                <form className="flex flex-col w-11/12 mx-auto space-y-3" method="post" onSubmit={sendPost}>
                     <label>Title</label>
-                    <input name="title"className="bg-slate-100 text-neutral-950" type="text" />
+                    <input name="title" id="title" className="bg-slate-100 text-neutral-950 w-1/4" type="text" />
                     <label>Tags</label>
-                    <input name="tags"className="bg-slate-100 text-neutral-950" type="text" />
+                    <input name="tags" id="tags" className="bg-slate-100 text-neutral-950 w-1/4 " type="text" />
                     <label>Share your post</label>
-                    <MyEditor/>
+                    <MyEditor editorState={editorState} onEditorStateChange={onEditorStateChange}/>
                     <label>Cover photo</label>
                     <input className="bg-slate-100 text-neutral-950" type="file" name="" id="" />
-                    <button type="submit" className="bg-teal-600 w-1/4 h-10 right-0 text-neutral-950">Publish</button>
+                    <button type="submit" className="bg-teal-500 rounded-md w-1/4 h-10  text-neutral-950 self-center hover:bg-teal-900 hover:text-blue-50">Publish</button>
                 </form>
             </div>
         </main>

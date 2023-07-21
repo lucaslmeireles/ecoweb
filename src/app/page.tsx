@@ -13,6 +13,7 @@ async function getWeather() {
   const data = await res.json()
   return data.current
 }
+
 export default async function Home() { 
   const data = await getPosts()
   
@@ -20,7 +21,6 @@ export default async function Home() {
   return (
     <>
     <main className="flex min-h-screen ">
-      <p>{session}</p>
     <div className='ml-8 flex pr-16 pt-12'>
     <div className=' flex flex-col w-full px-12'>
             <Grid data={data}/>
