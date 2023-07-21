@@ -18,17 +18,21 @@ export const options: NextAuthOptions = {
                     email: credentials?.email,
                     password: credentials?.password
                 }
+                console.log(JSON.stringify(payload))
                 const res = await fetch('https://eco-api.vercel.app/auth/signin', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                      },
                     method: 'POST',
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
                 })
-                
                 const user = await res.json()
+                console.log(user)
                 if (!res.ok) {
                     throw new Error(user.message)
                 }
                 if( res.ok && user){
-                    return user
+                    return user.access_token
                 }
 
                 return null
@@ -36,6 +40,18 @@ export const options: NextAuthOptions = {
             
         })
     ],    
+    callbacks: {
+        async jwt(token, user,) {
+            if (user) {
+                token.accessToken = user.token
+            }
+            return token
+        },
+        async session(session, token) {
+            session.accessToken = token.accessToken
+            return session
+        }
+    }
 }
 
 //here in pages i can make my own login page, i'll do it

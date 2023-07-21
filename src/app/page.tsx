@@ -2,7 +2,6 @@ import { Grid } from '@/components/grid'
 import Image from 'next/image'
 import Link from 'next/link'
 
-
 async function getPosts() {
   const res = await fetch('https://eco-api.vercel.app/post')
   const data = await res.json()
@@ -21,6 +20,7 @@ export default async function Home() {
   return (
     <>
     <main className="flex min-h-screen ">
+      <p>{session}</p>
     <div className='ml-8 flex pr-16 pt-12'>
     <div className=' flex flex-col w-full px-12'>
             <Grid data={data}/>
