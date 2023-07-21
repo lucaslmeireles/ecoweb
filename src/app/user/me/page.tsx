@@ -1,8 +1,6 @@
 import { GridCard } from "@/components/gridcard";
 
-export async function GetUser() {
-    
-}
+
 
 export async function getMyPosts(user) {
     const res  = await fetch('url com querry para a api')
@@ -10,7 +8,7 @@ export async function getMyPosts(user) {
     return data
 }
 export default async function UserMe() {
-    const user = await GetUser()
+    const user = 'user'
     const myPosts = await getMyPosts(user)
     return (
         <main className=" flex flex-col px-11 bg-slate-200">
