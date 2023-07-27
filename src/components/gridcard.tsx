@@ -5,15 +5,16 @@ export type GridCardProps = {
         id:number;
         title: string;
         tags: string;
-        image: string;
+        cover_img: string;
 }
 
 
 export const GridCard = (data: GridCardProps) => {
-    const {title, tags, image,id} = data
+    const {title, tags, cover_img,id} = data
+    console.log(data)
     return (
-        <div className='flex flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg'>
-            <img src={image} className='h-full w-full object-cover'/>
+        <div className='flex flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg hover:shadow-slate-600 transition-all'>
+            <img src={cover_img} className='h-full w-full object-cover opacity-70'/>
             <div className=' flex justify-between align-middle items-center bottom-0 w-full h-16 absolute'>
                 <div className=' flex flex-col'>
                     <p className='font-semibold ml-2 mt-1 '>
@@ -23,7 +24,7 @@ export const GridCard = (data: GridCardProps) => {
                     {tags}
                     </small>
                 </div>
-                <div className='h-10 w-10 mr-2 hover:border rounded-full border-slate-300 shadow-inner flex items-center justify-center'>
+                <div className='h-10 w-10 mr-2  rounded-full border-slate-300 shadow-inner flex items-center justify-center hover:bg-neutral-300'>
                     <Link href={`/posts/${id}`} >
                     <AiOutlineArrowRight/>
                     </Link>

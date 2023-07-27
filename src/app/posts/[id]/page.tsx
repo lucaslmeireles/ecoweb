@@ -7,6 +7,7 @@ export type  PostData = {
     tags: string;
     createdAt: string;
     updatedAt: string;
+    cover_img:string;
     author: {
         id: string;
         email: string;
@@ -22,7 +23,7 @@ export type  PostData = {
 }
 
 const getPostById = async (id:string) => {
-    const data = await fetch(`https://eco-api.vercel.app/post/${id}`, {next : {revalidate : 60*10}})
+    const data = await fetch(`https://eco-api.vercel.app/post/${id}`)
     const post = await data.json()
     return post.data
 }
@@ -35,7 +36,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
         <div className='flex flex-col align-middle items-center bg-slate-100'>
             <div className='flex flex-col w-4/6'>
                 <div className="Image w-full h-72 rounded-lg pt-4 pb-4 ">
-                    <img src='https://images.unsplash.com/photo-1688821999533-b0b719348555?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=954&q=80' className='object-cover w-full h-full rounded-xl'/>
+                    <img src={post.cover_img} className='object-cover w-full h-full rounded-xl'/>
                 </div>
                 <div className="flex flex-col">
                     <h1 className="font-semibold text-slate-900 text-3xl">{post.title}</h1>

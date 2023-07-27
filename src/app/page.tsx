@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 async function getPosts() {
-  const res = await fetch('https://eco-api.vercel.app/post')
+  const res = await fetch('https://eco-api.vercel.app/post', {next: {revalidate: 8*60}})
   const data = await res.json()
   return data
 }
