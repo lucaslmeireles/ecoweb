@@ -26,12 +26,13 @@ export default function CreatePost() {
             content: contentJson
         }
         const res = await fetch('https://eco-api.vercel.app/post/create', {
+            mode: 'cors',
             method: 'POST',
             headers: {
-                "Access-Control-Allow-Headers": "*",
-                "Authorization" : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJpYXQiOjE2ODk5NTExMjAsImV4cCI6MTY4OTk1MjAyMH0.p7_evu3Vm5-zD7WtQ4jC1NHUz0cVgIDBzwrge1rF3U8',
+                "Authorization" : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJpYXQiOjE2OTAxMTc1OTYsImV4cCI6MTY5MDExODQ5Nn0.AXHN2bLh4qE0PjmME_boky0_tXsRFf6UavCruPaX0ww',
                 "Content-Type": "application/json",
             },
+            body: JSON.stringify(body)
         })
         const reponse = await res.json()
         console.log(reponse)

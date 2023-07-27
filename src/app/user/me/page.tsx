@@ -3,7 +3,7 @@ import { GridCard } from "@/components/gridcard";
 
 
 export async function getMyPosts(user) {
-    const res  = await fetch('url com querry para a api')
+    const res  = await fetch('https://eco-api.vercel.app/user/me')
     const data =  await res.json()
     return data
 }
