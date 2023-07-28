@@ -15,14 +15,12 @@ export default function CreatePost() {
     }
     const sendPost =  async (event: React.FormEvent) => {
         event.preventDefault()
-        const tags = event.target.tags.value as string
         const title = event.target.title.value as string
         const content = editorState.getCurrentContent()
         const contentJson = JSON.stringify(convertToRaw(content))
         const body = {
             title,
             small_text: 'oi',
-            tags,
             content: contentJson
         }
         const res = await fetch('https://eco-api.vercel.app/post/create', {

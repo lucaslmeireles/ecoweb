@@ -1,6 +1,9 @@
 import { Grid } from '@/components/grid'
+import { get } from 'http'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { options } from './api/auth/[...nextauth]/options'
 
 async function getPosts() {
   const res = await fetch('https://eco-api.vercel.app/post', {next: {revalidate: 8*60}})
@@ -18,6 +21,8 @@ export default async function Home() {
   const data = await getPosts()
   
   const weather = await getWeather()
+  const  session = await getServerSession(options)
+  console.log(session)
   return (
     <>
     <main className="flex min-h-screen ">

@@ -10,7 +10,7 @@ export const options: NextAuthOptions = {
         Credentials({
             name: "Credentials",
             credentials: {
-                email: { label: "email", type: "email", placeholder: "your email" },
+                email: { label: "Email", type: "email", placeholder: "Your beautiful email" },
                 password: { label: "Password", type: "password" }
               },
             async authorize(credentials, req) {
@@ -30,6 +30,7 @@ export const options: NextAuthOptions = {
                     throw new Error(user.message)
                 }
                 if( res.ok && user){
+                    console.log(user)
                     return user.access_token
                 }
 
@@ -39,14 +40,11 @@ export const options: NextAuthOptions = {
         })
     ],    
     callbacks: {
-        async jwt(token, user,) {
-            if (user) {
-                token.user = user.token
-            }
-            return token
+        async jwt({token, user}){
+            return {...token, ...user}
         },
-        async session(session, token) {
-            session.accessToken = token.access_token
+        async session({session, token, user}){
+            session.user = token
             return session
         }
     }

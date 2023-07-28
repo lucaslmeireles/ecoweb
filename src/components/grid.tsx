@@ -8,7 +8,13 @@ type GridProps = {
 
 export const Grid = (data: GridProps) => {
     //db pegar os posts daquela featured category
-    console.log(data)
+    if (data.data.length == 0) {
+        <>
+            <div className=' flex flex-col w-full mb-8'>
+                <p>Wow, looks empty here....</p>
+            </div>
+        </>
+    }
     return (
         <div className=' flex flex-col w-full p-6'>
             {data.data.map((post) => {
