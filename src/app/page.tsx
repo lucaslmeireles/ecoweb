@@ -4,9 +4,11 @@ import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { options } from './api/auth/[...nextauth]/options'
+import { use } from 'react'
+import { useSession } from 'next-auth/react'
 
 async function getPosts() {
-  const res = await fetch('https://eco-api.vercel.app/post', {next: {revalidate: 8*60}})
+  const res = await fetch('https://eco-api.vercel.app/post', {headers: {'Content-Type': 'application/json'}})
   const data = await res.json()
   return data
 }
@@ -19,15 +21,12 @@ async function getWeather() {
 
 export default async function Home() { 
   const data = await getPosts()
-  
   const weather = await getWeather()
-  const  session = await getServerSession(options)
-  console.log(session)
   return (
     <>
     <main className="flex min-h-screen ">
     <div className='ml-8 flex pr-16 pt-12'>
-    <div className=' flex flex-col w-full px-12'>
+    <div className='flex flex-col w-full px-12'>
             <Grid data={data}/>
     </div>      
       <div className='flex flex-col'>

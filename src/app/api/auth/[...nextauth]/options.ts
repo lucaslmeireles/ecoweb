@@ -31,7 +31,7 @@ export const options: NextAuthOptions = {
                 }
                 if( res.ok && user){
                     console.log(user)
-                    return user.access_token
+                    return user
                 }
 
                 return null
@@ -44,7 +44,7 @@ export const options: NextAuthOptions = {
             return {...token, ...user}
         },
         async session({session, token, user}){
-            session.user = token
+            session.access_token = token.access_token
             return session
         }
     }

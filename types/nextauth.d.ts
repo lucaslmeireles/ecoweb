@@ -3,6 +3,6 @@ import { decl } from "postcss";
 
 declare module "next-auth" {
     interface Session {
-        acess_token: string
+        access_token: string
     }
 }

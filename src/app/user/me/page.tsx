@@ -3,15 +3,7 @@ import { GridCard } from "@/components/gridcard";
 
 
 export async function getMyPosts(user) {
-<<<<<<< HEAD
     const res  = await fetch('https://eco-api.vercel.app/user/me')
-=======
-    const res  = await fetch('https://eco-api.vercel.app/post/myposts', {
-        headers: {
-            Authorization: ""
-        }
-    })
->>>>>>> 6a0dd900a1103d1d4ad2ee03be6744cf5cd471a4
     const data =  await res.json()
     return data
 }
@@ -29,7 +21,7 @@ export default async function UserMe() {
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
                 <div>
                      {myPosts.map((post)=>{
-                        <GridCard title='teste' id={20} tags="oioi" image="" key={1}/>
+                        <GridCard title={post.title} id={post.id} tags={post.tags} image={post.cover_img} key={post.id}/>
                      })}
                 </div>
             </div>
