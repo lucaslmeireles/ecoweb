@@ -1,4 +1,5 @@
 import { GridCard } from "@/components/gridcard";
+import { useSessionHook } from "@/hooks";
 
 
 
@@ -8,8 +9,8 @@ export async function getMyPosts(user) {
     return data
 }
 export default async function UserMe() {
-    const user = '1'
-    const myPosts = await getMyPosts(user)
+    const session = useSessionHook()
+    const myPosts = await getMyPosts(session?.access_token)
     return (
         <main className=" flex flex-col px-11 bg-slate-200">
             <div className="flex flex-col place-self-center my-5">

@@ -3,6 +3,9 @@ import './globals.css'
 import { Inter, Quicksand } from 'next/font/google'
 import {BiSearchAlt} from 'react-icons/bi'
 import SearchInput from './searchInput'
+import {TiDocumentAdd} from 'react-icons/ti'
+
+
 const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
 import {SessionProvider} from './providers/SessionProvider'
@@ -22,12 +25,19 @@ export default function RootLayout({
       <body className={inter.className}>
       <SessionProvider>
         <nav className='h-16 bg-white drop-shadow-md flex justify-between items-center align-middle'>
+          <Link href="/">
           <p className={`${quicksand.className} font-semibold text-4xl text-emerald-800 mx-3`}>
           ECO</p>
+          </Link>
           <SearchInput/>
           <div className='flex space-x-2'>
           <ul>
-            <li>Write</li>
+          <Link href="/posts/create"> 
+          <div className="w-32 h-10 bg-sky-600 rounded-lg flex align-middle items-center justify-center flex-row">
+          <p className="text-white text-base font-semibold">Add post</p>
+          <TiDocumentAdd className='text-white w-5 h-5'/>
+          </div>
+          </Link>
           </ul>
             <Link href="/api/auth/signin"> <p>
               User

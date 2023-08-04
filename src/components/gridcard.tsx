@@ -24,12 +24,13 @@ export const GridCard = (data: GridCardProps) => {
                     {tags}
                     </small>
                 </div>
-                <div className='h-10 w-10 mr-2  rounded-full border-slate-300 shadow-inner flex items-center justify-center hover:bg-neutral-300'>
-                    <Link href={`/posts/${id}`} >
-                    <AiOutlineArrowRight/>
-                    </Link>
                     
+                <Link href={`/posts/${id}`} >
+                <div className='w-20 h-5 bg-lime-100 rounded-md mr-2 mt-1 flex flex-row items-center '>
+                    <p className="text-lime-700 text-xs px-1 font-bold">Ler Mais</p>
+                    <AiOutlineArrowRight className='text-lime-900'/>
                 </div>
+                </Link>
         </div>
         </div>
     )
