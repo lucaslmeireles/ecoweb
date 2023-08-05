@@ -47,6 +47,7 @@ export default function RootLayout({
         </nav>
         {children}
         </SessionProvider>
+        <img src="/wave.svg" alt="wave" className="logo" />
         </body>
     </html>
   )
