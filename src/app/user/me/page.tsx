@@ -3,7 +3,7 @@ import { useSessionHook } from "@/hooks";
 
 
 
-export async function getMyPosts(user) {
+export async function getMyPosts(user : string |undefined) {
     const res  = await fetch('https://eco-api.vercel.app/user/me')
     const data =  await res.json()
     return data

@@ -1,15 +1,13 @@
 import { Grid } from '@/components/grid'
-import { get } from 'http'
-import { getServerSession } from 'next-auth'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getPosts, getWeather } from './data'
+import { getPosts } from './data'
+import ClientProvider from './providers/ClientProvider'
 import { WeatherCard } from '@/components/weathercard'
 
-
-
-export default async function Home() { 
+async function Home() { 
   const data = await getPosts()
+  //Agurpar por tags fazer um map e depois 
   return (
     <>
     <main className="flex h-max ">
@@ -27,5 +25,5 @@ export default async function Home() {
   )
 }
 
-
+export default Home
 

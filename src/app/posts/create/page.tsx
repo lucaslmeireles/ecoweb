@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
 
 
-export default function CreatePost() {
+function CreatePost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const onEditorStateChange = (editorState : EditorState) => {
@@ -65,3 +65,5 @@ export default function CreatePost() {
         </main>
     )
 }
+
+export default CreatePost
