@@ -1,13 +1,11 @@
 import { Grid } from '@/components/grid'
-import Image from 'next/image'
-import Link from 'next/link'
 import { getPosts } from './data'
-import ClientProvider from './providers/ClientProvider'
 import { WeatherCard } from '@/components/weathercard'
+import  NewsCard  from '@/components/newscard'
+import { NewsGrid } from '@/components/newsgrid'
 
 async function Home() { 
   const data = await getPosts()
-  //Agurpar por tags fazer um map e depois 
   return (
     <>
     <main className="flex h-max ">
@@ -17,9 +15,11 @@ async function Home() {
     </div>      
       <div className='flex flex-col'>
           <WeatherCard />
-      </div>      
-      
+      <div className='h-full w-80 py-2 mt-4 rounded-lg bg-neutral-400 flex flex-col align-middle items-center'>
+          <NewsGrid/>
       </div>
+      </div>      
+    </div>
     </main>
     </>
   )

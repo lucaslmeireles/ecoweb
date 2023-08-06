@@ -1,3 +1,4 @@
+'use client'
 import { GridCard } from "@/components/gridcard";
 import { useSessionHook } from "@/hooks";
 

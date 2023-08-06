@@ -1,7 +1,11 @@
 import { GridCard, GridCardProps } from "./gridcard"
 
 type GridProps = {
-    data: GridCardProps[]
+    data: {
+        id: string,
+        name: string,
+        posts: GridCardProps[]
+    }
 }
 
 
@@ -16,13 +20,17 @@ export const Grid = (data: GridProps) => {
     }
     return (
         <div className=' flex flex-col w-full p-6'>
-            {data.data.map((post) => {
+            {data.data.map((tag) => {
+                // colocar que se uma tag tiver 0 posts, não renderizar ela
                 return (
-                    <div key={post.id} className=' flex flex-col w-full mb-8'>
-                        
-                        <h2 className="text-3xl font-semibold pb-3">#Recomendado</h2>
-                        <div className='grid-cols-4 grid col-span-4 gap-8 grid-flow-row'>
-                            <GridCard id={post.id} title={post.title} tags={post.tags} cover_img={post.cover_img} key={post.id}/>
+                    <div key={tag.id} className=' flex flex-col w-full mb-8'>
+                        <h2 className="text-3xl font-semibold pb-3">#{tag.name}</h2>
+                        <div className='grid-cols-4 grid col-span-4 gap-20 grid-flow-row'>
+                            {tag.posts.map((post) => {
+                                return (
+                                    <GridCard id={post.id} title={post.title} tags={post.tags} cover_img={post.cover_img} key={post.id}/>
+                                )
+                            })}
                         </div>
                     </div>
                 )

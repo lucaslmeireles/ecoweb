@@ -34,6 +34,7 @@ const getPostById = async (id:string) => {
 
 export default async function PostDetail({params} : {params: {id: string}}) {
     const post = await getPostById(params.id)
+    console.log(post)
     return (
         <div className='flex flex-col align-middle items-center h-full bg-slate-100'>
             <div className='flex flex-col w-4/6'>

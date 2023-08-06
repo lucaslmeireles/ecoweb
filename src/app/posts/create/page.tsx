@@ -32,7 +32,6 @@ function CreatePost() {
             content: contentHtml,
             tags: ['oi'],
         }
-        console.log(body)
         const res = await fetch('https://eco-api.vercel.app/post/create', {
             mode: 'cors',
             method: 'POST',
