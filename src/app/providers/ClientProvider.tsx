@@ -6,7 +6,6 @@ const ClientOnly = (props: ClientOnlyProps) => {
   return children;
 };
 
-/* export default dynamic(() => Promise.resolve(ClientOnly), {
+export default dynamic(() => Promise.resolve(ClientOnly), {
   ssr: false,
 });
-*/
