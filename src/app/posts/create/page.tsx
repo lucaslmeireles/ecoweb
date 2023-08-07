@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
 import { uploadImageCloudnary } from "@/app/data/cloudnaryService";
 
-
 function CreatePost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
@@ -38,8 +37,8 @@ function CreatePost() {
             return tag.value;
         })
         const rawContentState = convertToRaw(editorState.getCurrentContent())
-        console.log(event.target.files)
-        const imgurl = uploadImageCloudnary(event.target.files[0], event.target.img.name)
+        const imgurl = await uploadImageCloudnary(event.target.img.files[0])
+        console.log(imgurl)
         const hashConfig = {
             trigger: '#',
             separator: ' ',
@@ -53,22 +52,22 @@ function CreatePost() {
             small_text,
             content: contentHtml,
             tags,
-            //cover_img: imgurl
+            cover_img: imgurl
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl
-        /*const res = await fetch('https://eco-api.vercel.app/post/create', {
+        const res = await fetch('https://eco-api.vercel.app/post/create', {
             mode: 'cors',
             method: 'POST',
             headers: {
-                "Authorization" : 'Bearer ' + session?.access_token,
+                "Authorization" : 'Bearer ' +  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJpYXQiOjE2OTE0MzAxMTAsImV4cCI6MTY5MTQzMTAxMH0.2VgNygjrWlzmgCbeHZ-4GtDhf2CUOubkGVdcl07MG5w',
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body)
         })
         const reponse = await res.json()
         console.log(reponse)
-        */
+        
         setModalVisible(false)
     }
     return (

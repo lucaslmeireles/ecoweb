@@ -39,7 +39,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
         <div className='flex flex-col align-middle items-center h-full bg-slate-100'>
             <div className='flex flex-col w-4/6'>
                 <div className="Image w-full h-72 rounded-lg pt-4 pb-4 ">
-                    <img src='https://images.unsplash.com/photo-1690460550070-e73402127f11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80s' className='object-cover w-full h-full rounded-xl'/>
+                    <img src={post.cover_img || 'https://images.unsplash.com/photo-1690460550070-e73402127f11?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80s'} className='object-cover w-full h-full rounded-xl'/>
                 </div>
                 <div className="flex flex-col">
                     <h1 className="font-semibold text-slate-900 text-3xl">{post.title}</h1>
