@@ -19,3 +19,23 @@ export async function getNews() {
   const {articles: {results}} = await data.json()
   return results
 }
+
+export async function createPost(access_token, body) {
+  const res = await fetch('https://eco-api.vercel.app/post/create', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                "Authorization" : 'Bearer ' +  access_token,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body)
+        })
+  const response = await res.json()
+  return  response
+}
+
+export async function getTags(){
+  const req = await fetch('https://eco-api.vercel.app/post/tag')
+  const res = await req.json()
+  return res
+}
