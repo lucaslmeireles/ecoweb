@@ -10,7 +10,7 @@ async function Home() {
     <>
     <main className=" mx-5 h-max">
     <div className='flex pt-12'>
-    <div className='flex flex-col w-full '>
+    <div className='flex flex-col w-full mx-3  '>
             <Grid data={data}/>
     </div>      
       <div className='flex flex-col self-end'>
