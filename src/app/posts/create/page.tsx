@@ -16,10 +16,9 @@ const hashConfig = {
     separator: ' ',
 } 
 
-async function CreatePost() {
+function CreatePost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
-    const [modalVisible, setModalVisible] = useState(false)
     const [choices, setChoices] = useState([])
     const options =[
         { value: 'chocolate', label: 'Chocolate' },
@@ -56,19 +55,25 @@ async function CreatePost() {
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl
-        const res = await createPost(session?.access_token,body)
-        if (res.status == 200){
-            setModalVisible(true)
-        }
+        const res = await fetch('https://eco-api.vercel.app/post/create', {
+                      mode: 'cors',
+                      method: 'POST',
+                      headers: {
+                          "Authorization" : 'Bearer ' +  session?.access_token,
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(body)
+                  })
+            const response = await res.json()
+            return  response
         
     }
     return (
         <>
         <main className="mx-5 px-3 my-3 py-2">
             <h1 className="text-2xl text-neutral-900 font-semibold py-1">Create your post</h1>
-            <small className="text-teal-600 text-base font-normal  flex algin-middle items-center">Share with the world <BiWorld className="mx-1"/></small>
+            <small className="text-primary text-base font-normal  flex algin-middle items-center">Share with the world <BiWorld className="mx-1"/></small>
             <div className="flex flex-col mt-7">
-                <button onClick={()=> setModalVisible(true)}>Modal</button>
                 <form  className="flex flex-col w-11/12 mx-auto space-y-3" method="post" onSubmit={sendPost}>
                     <label>Title</label>
                     <input name="title" id="title" className="bg-slate-100 text-neutral-950 w-2/4 h-8 rounded-lg  " type="text" />
@@ -77,15 +82,13 @@ async function CreatePost() {
                     <label>Share your post</label>
                     <MyEditor editorState={editorState} onEditorStateChange={onEditorStateChange}/>
                     <label>Tags</label>
-                    <CreatableSelect  onChange={(choice) => onSelectedTag(choice)} isMulti options={options} />
+                    <CreatableSelect  isMulti options={options} />
                     <label>Cover photo</label>
                     <input className="bg-slate-100 text-neutral-950" type="file" name="img" id="img" />
-                    <button type="submit" disabled={modalVisible} className="bg-teal-500 rounded-md w-1/4 h-10  text-neutral-950 self-center hover:bg-teal-900 hover:text-blue-50">Publish</button>
+                    <button type="submit"  className="bg-accent rounded-md w-1/4 h-10  text-neutral-50 self-center hover:bg-teal-900 hover:text-blue-50">Publish</button>
                 </form>
             </div>
         </main>
-
-            {modalVisible && <Modal/>}
         </>
     )
 }

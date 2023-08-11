@@ -5,7 +5,7 @@ type GridProps = {
         id: string,
         name: string,
         posts: GridCardProps[]
-    }
+    } []
 }
 
 
@@ -25,7 +25,7 @@ export const Grid = (data: GridProps) => {
                 return (
                     <div key={tag.id} className=' flex flex-col w-full mb-8'>
                         <h2 className="text-3xl font-semibold pb-3">#{tag.name}</h2>
-                        <div className='grid-cols-3 grid col-span-3 gap-10 grid-flow-row'>
+                        <div className='grid-cols-4 grid col-span-3 gap-10 grid-flow-row'>
                             {tag.posts.length!=0 && tag.posts.map((post) => {
                                 return (
                                     <GridCard id={post.id} title={post.title} tags={post.tags} cover_img={post.cover_img} key={post.id}/>

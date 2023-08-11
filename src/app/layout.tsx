@@ -26,14 +26,14 @@ export default function RootLayout({
       <SessionProvider>
         <nav className='h-16 bg-white drop-shadow-md flex justify-between items-center align-middle'>
           <Link href="/">
-          <p className={`${quicksand.className} font-semibold text-4xl text-emerald-800 mx-3`}>
+          <p className={`${quicksand.className} font-semibold text-4xl text-primary mx-3`}>
           ECO</p>
           </Link>
           <SearchInput/>
           <div className='flex space-x-2'>
           <ul>
           <Link href="/posts/create"> 
-          <div className="w-32 h-10 bg-sky-600 rounded-lg flex align-middle items-center justify-center flex-row">
+          <div className="w-32 h-10 bg-accent rounded-lg flex align-middle items-center justify-center flex-row">
           <p className="text-white text-base font-semibold">Add post</p>
           <TiDocumentAdd className='text-white w-5 h-5'/>
           </div>

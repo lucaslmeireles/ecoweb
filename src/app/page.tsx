@@ -8,9 +8,9 @@ async function Home() {
   const data = await getPosts()
   return (
     <>
-    <main className="flex h-max">
-    <div className='ml-8 flex pr-16 pt-12'>
-    <div className='flex flex-col w-full px-12'>
+    <main className=" mx-5 h-max">
+    <div className='flex pt-12'>
+    <div className='flex flex-col w-full '>
             <Grid data={data}/>
     </div>      
       <div className='flex flex-col self-end'>
