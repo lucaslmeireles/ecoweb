@@ -15,9 +15,11 @@ module.exports = {
       colors: {
         transparent: "transparent",
         primary: "#2A4437",
-        secondary: "#D8D8C5",
+        secondary: "#E9E9E9",
         accent: "#3A5A40",
-        bg: "DAD7CD",
+        bg: "#DAD7CD",
+        "backgorund": "#e6e1ea",
+        "border": "#BBBBBB"
       },
     },
   },
