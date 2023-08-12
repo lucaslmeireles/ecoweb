@@ -1,7 +1,7 @@
 import { GetWheaterType } from "/../../types/dataFunctions.type"
 
  export async function getPosts() {
-    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/', {headers: {'Content-Type': 'application/json'}, next:{revalidate: 1} })
+    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/', {headers: {'Content-Type': 'application/json'}, next:{revalidate: 60*60*2} })
     const data = await res.json()
     return data
   }

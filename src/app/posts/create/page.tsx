@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from "react";
 import { BiWorld } from "react-icons/bi";
-import MyEditor from "./myEditor";
+import MyEditor from "../create/myEditor";
 import { EditorState, convertToRaw } from "draft-js";
 import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
@@ -9,17 +9,26 @@ import { uploadImageCloudnary } from "@/app/data/cloudnaryService";
 import CreatableSelect from 'react-select/creatable';
 import { createPost, getTags } from "@/app/data";
 import { Modal } from "@/components/modalSucess";
-
+import {FiUpload} from 'react-icons/fi'
+import { FileUploader } from "react-drag-drop-files";
+import { Toggle } from "@/components/toggle";
 
 const hashConfig = {
     trigger: '#',
     separator: ' ',
 } 
 
+const fileTypes = ["JPG", "PNG", "GIF"];
+
 function CreatePost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [choices, setChoices] = useState([])
+    const [file, setFile] = useState(null);
+    const [publisher, setPublisher] = useState(false);
+    const handleChange = (file) => {
+    setFile(file);
+    };
     const options =[
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -40,7 +49,7 @@ function CreatePost() {
         const small_text = event.target.small_text.value as string
         const tags = choices
         const rawContentState = convertToRaw(editorState.getCurrentContent())
-        const imgurl = await uploadImageCloudnary(event.target.img.files[0])
+        const imgurl = await uploadImageCloudnary(file)
         
         const contentHtml = draftToHtml(
             rawContentState, 
@@ -51,7 +60,8 @@ function CreatePost() {
             small_text,
             content: contentHtml,
             tags,
-            cover_img: imgurl
+            cover_img: imgurl,
+            publisher
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl
@@ -70,25 +80,62 @@ function CreatePost() {
     }
     return (
         <>
-        <main className="mx-5 px-3 my-3 py-2">
-            <h1 className="text-2xl text-neutral-900 font-semibold py-1">Create your post</h1>
-            <small className="text-primary text-base font-normal  flex algin-middle items-center">Share with the world <BiWorld className="mx-1"/></small>
-            <div className="flex flex-col mt-7">
-                <form  className="flex flex-col w-11/12 mx-auto space-y-3" method="post" onSubmit={sendPost}>
-                    <label>Title</label>
-                    <input name="title" id="title" className="bg-slate-100 text-neutral-950 w-2/4 h-8 rounded-lg  " type="text" />
-                    <label>Description</label>
-                    <input name="small_text" id="small_text" className="bg-slate-100 text-neutral-950 w-1/4 rounded-sm" type="text" />
-                    <label>Share your post</label>
-                    <MyEditor editorState={editorState} onEditorStateChange={onEditorStateChange}/>
-                    <label>Tags</label>
-                    <CreatableSelect  isMulti options={options} />
-                    <label>Cover photo</label>
-                    <input className="bg-slate-100 text-neutral-950" type="file" name="img" id="img" />
-                    <button type="submit"  className="bg-accent rounded-md w-1/4 h-10  text-neutral-50 self-center hover:bg-teal-900 hover:text-blue-50">Publish</button>
-                </form>
+        <div className="m-4">
+            <form method="post" onSubmit={sendPost}> 
+            <div className="flex flex-row justify-between">
+                <div className="flex py-4 flex-col">
+                    <h1 className="text-neutral-950 font-semibold">Create your post</h1>
+                    <p className="text-primary font-bold">Share with the world</p>
+                </div>
+            <button type="submit" className="bg-accent text-white w-1/12 h-8 rounded">Publisher</button>
             </div>
-        </main>
+            <div className="flex flex-row w-full justify-between ">
+                <div className="flex w-9/12 flex-col py-2  bg-backgorund border rounded border-border">
+                    <div className="flex flex-row">
+                        <div className="flex flex-col w-2/5 x-3 mx-2">
+                            <label htmlFor="" className="text-base font-medium text-neutral-950">Title</label>
+                            <input type="text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" name="title" id="" />
+                        </div>
+                        <div className="flex flex-col w-3/5 px-3 mx-2">
+                            <label htmlFor="" className="text-base font-medium text-neutral-950">Description</label>
+                            <input type="text" name="small_text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" id="" />
+                        </div>
+                    </div>
+                    <div className="my-2 py-4 mx-2 h-6/12">
+                    <label className="text-base font-medium text-neutral-950">Your text</label>
+                    <MyEditor editorState={editorState} onEditorStateChange={onEditorStateChange}/>
+                    </div>
+                    <div className="text-primary mt-4 flex flex-col pb-5 justify-center items-center">
+                        <p className="text-neutral-950 text-base font-medium py-3">Cover image</p>
+                        <FileUploader 
+                          handleChange={handleChange} 
+                          name="file" 
+                          types={fileTypes} 
+                          multiple={false}
+                          classes="text-primary"
+                          >
+                        </FileUploader>
+                    </div>
+                </div>
+                <div className="w-3/12 mx-3 bg-secondary  p-3 border rounded border-border">
+                    <div className="flex space-x-2 flex-row align-middle items-center">
+                        <img className="w-12 h-12" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/>
+                        <p>AutorName</p>
+                    </div>
+                    <div className="my-4 py-2 border rounded border-border px-2">
+                    <label className="text-base font-semibold text-neutral-950">Tags</label>
+                    <CreatableSelect  isMulti options={options} onChange={onSelectedTag}/>
+                    </div>
+                    <div className="flex flex-col">
+                    <label>Publisher</label>
+                    <button onClick={() => {setPublisher(!publisher)}}>
+                    <Toggle toggled={publisher}/>
+                    </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
         </>
     )
 }
