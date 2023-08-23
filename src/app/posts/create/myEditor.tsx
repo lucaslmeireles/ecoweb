@@ -23,7 +23,7 @@ function MyEditor({editorState, onEditorStateChange}) {
         <div className='bg-secondary py-4'>
             <Editor 
             editorState = {editorState}
-            toolbarClassName='flex sticky top-0 z-50 justify-center mx-auto'
+            toolbarClassName='flex sticky top-0 z-10 justify-center mx-auto'
             onEditorStateChange = {onEditorStateChange}
             editorClassName = 'bg-white shadow-lg h-full mx-auto mt-2'
             />

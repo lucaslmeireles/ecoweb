@@ -1,7 +1,7 @@
 import { GetWheaterType } from "/../../types/dataFunctions.type"
 
  export async function getPosts() {
-    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/', {headers: {'Content-Type': 'application/json'}, next:{revalidate: 60*60*2} })
+    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/', {headers: {'Content-Type': 'application/json'}, next:{revalidate: 1} })
     const data = await res.json()
     return data
   }
@@ -35,7 +35,10 @@ export async function createPost(access_token, body) {
 }
 
 export async function getTags(){
-  const req = await fetch('https://eco-api.vercel.app/post/tag')
-  const res = await req.json()
-  return res
+  const tags =  await fetch('https://eco-api.vercel.app/tags/', {headers: {'Content-Type': 'application/json'}})
+  const data = await tags.json()
+  const tagsList = data.map(tag => {
+      return {value: tag.name, label: tag.name}
+  })
+  return tagsList
 }

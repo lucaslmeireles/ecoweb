@@ -1,6 +1,5 @@
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import MyMarkdown from "./myMarkdown";
-import { convertFromRaw } from "draft-js";
+import DisqusComments from "./DisqusCompnent";
+
 
 export type  PostData = {
     id: string;
@@ -25,7 +24,7 @@ export type  PostData = {
 }
 
 const getPostById = async (id:string) => {
-    const data = await fetch(`https://eco-api.vercel.app/post/${id}`, {headers: {'Content-Type': 'application/json'}})
+    const data = await fetch(`https://eco-api.vercel.app/post/view/${id}`, {headers: {'Content-Type': 'application/json'}})
     const post = await data.json()
     return post.data
 }
@@ -61,7 +60,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
             </section>
             </div>
             <section className="Comments w-4/6">
-                <p>disqus</p>
+                <DisqusComments post={post}/>
             </section>
         </div>
     )

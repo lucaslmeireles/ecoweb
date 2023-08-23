@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiWorld } from "react-icons/bi";
 import MyEditor from "../create/myEditor";
 import { EditorState, convertToRaw } from "draft-js";
@@ -24,24 +24,31 @@ function CreatePost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [choices, setChoices] = useState([])
+    const [options, setOptions] = useState()
     const [file, setFile] = useState(null);
     const [publisher, setPublisher] = useState(false);
+    const [modal, setModal] = useState(false);
     const handleChange = (file) => {
     setFile(file);
     };
-    const options =[
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    useEffect(() => {
+        const getData = async () =>{
+            const tagsList = await getTags()
+            setOptions([...tagsList, {value: 'novidade', label: 'Novidade', isFixed: true}])
+            
+        }
+        getData()
+    },[])
 
     const onEditorStateChange = (editorState : EditorState) => {
         setEditorState(editorState)
     }
+    const handleToggle = () => {
+        setPublisher(!publisher)
+    }
     //https://www.cluemediator.com/how-to-get-selected-by-only-value-for-multi-select-in-react-select
     const onSelectedTag = (e) => {
         setChoices(Array.isArray(e) ? e.map(x => x.value.toLowerCase()) : [])
-        console.log(choices)
     }
     const sendPost =  async (event: React.FormEvent) => {
         event.preventDefault()
@@ -61,7 +68,7 @@ function CreatePost() {
             content: contentHtml,
             tags,
             cover_img: imgurl,
-            publisher
+            status: publisher
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl
@@ -75,11 +82,15 @@ function CreatePost() {
                       body: JSON.stringify(body)
                   })
             const response = await res.json()
+            if (response.statusCode === 401) setModal(true) //Mudar para 201
+            console.log(response.statusCode)
             return  response
+
         
     }
     return (
         <>
+        {modal && <Modal setModal={setModal} modal={modal}/>}
         <div className="m-4">
             <form method="post" onSubmit={sendPost}> 
             <div className="flex flex-row justify-between">
@@ -124,13 +135,11 @@ function CreatePost() {
                     </div>
                     <div className="my-4 py-2 border rounded border-border px-2">
                     <label className="text-base font-semibold text-neutral-950">Tags</label>
-                    <CreatableSelect  isMulti options={options} onChange={onSelectedTag}/>
+                    <CreatableSelect isMulti options={options} onChange={onSelectedTag}/>
                     </div>
                     <div className="flex flex-col">
                     <label>Publisher</label>
-                    <button onClick={() => {setPublisher(!publisher)}}>
-                    <Toggle toggled={publisher}/>
-                    </button>
+                    <Toggle toggled={publisher} setToggled={handleToggle}/>
                     </div>
                 </div>
             </div>

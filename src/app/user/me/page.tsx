@@ -1,17 +1,36 @@
 'use client'
+import { Grid } from "@/components/grid";
 import { GridCard } from "@/components/gridcard";
 import { useSessionHook } from "@/hooks";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 
 
 export async function getMyPosts(user : string |undefined) {
-    const res  = await fetch('https://eco-api.vercel.app/user/me')
+    const res  = await fetch('https://eco-api.vercel.app/post/myposts', { headers: {
+        "Authorization" : 'Bearer ' +  user,
+        "Content-Type": "application/json",
+    }},)
     const data =  await res.json()
     return data
 }
-export default async function UserMe() {
-    const session = useSessionHook()
-    const myPosts = await getMyPosts(session?.access_token)
+export default  function UserMe() {
+    const [posts, setPosts] = useState([])
+    const [loading, setLoadign] = useState(false)
+    const {data: session} = useSession();
+    console.log(session)
+
+    useEffect(()=>{
+        const getData = async () => {
+            const data = await getMyPosts(session?.access_token)
+            console.log(data)
+            setPosts(data)
+            setLoadign(true)
+        }
+        getData()
+    },[session?.access_token])
+    console.log(posts)
     return (
         <main className=" flex flex-col px-11 bg-slate-200">
             <div className="flex flex-col place-self-center align-middle justify-center my-5">
@@ -22,13 +41,15 @@ export default async function UserMe() {
             <div className="flex flex-col">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
                 <div>
-                     
+                    {loading ? posts.map((post : any) => (
+                        <GridCard key={post.id} title={post.title} content={post.content} tags={post.tags} createdAt={post.createdAt} updatedAt={post.updatedAt} cover_img={post.cover_img} author={post.author} />
+                    )) : <p>Carregando</p>}
                 </div>
             </div>
             <div>
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Curtidos</h2>
                 <div>
-                    
+                   
                 </div>
             </div>
         </main>
