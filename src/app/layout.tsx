@@ -1,10 +1,9 @@
 import Link from 'next/link'
 import './globals.css'
 import { Inter, Quicksand } from 'next/font/google'
-import {BiSearchAlt} from 'react-icons/bi'
 import SearchInput from './searchInput'
 import {TiDocumentAdd} from 'react-icons/ti'
-
+import UserProfile from  '@/components/userProfile'
 
 const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
@@ -39,10 +38,7 @@ export default function RootLayout({
           </div>
           </Link>
           </ul>
-            <Link href="/api/auth/signin"> <p>
-              User
-            </p>
-            </Link>
+            <UserProfile/>
           </div>
         </nav>
         {children}

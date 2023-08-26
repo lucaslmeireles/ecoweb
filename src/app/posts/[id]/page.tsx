@@ -1,4 +1,5 @@
-import DisqusComments from "./DisqusCompnent";
+import LikedZone from "@/components/likedZone";
+import DisqusComments from "./DisqusComponent";
 
 
 export type  PostData = {
@@ -15,11 +16,6 @@ export type  PostData = {
         firstName: string;
         lastName: string;
     };
-    Comment: {
-        id: string;
-        postId: string;
-        content: string;
-    }
 
 }
 
@@ -33,7 +29,6 @@ const getPostById = async (id:string) => {
 
 export default async function PostDetail({params} : {params: {id: string}}) {
     const post = await getPostById(params.id)
-    console.log(post)
     return (
         <div className='flex flex-col align-middle items-center h-full bg-slate-100'>
             <div className='flex flex-col w-4/6'>
@@ -42,17 +37,18 @@ export default async function PostDetail({params} : {params: {id: string}}) {
                 </div>
                 <div className="flex flex-col">
                     <h1 className="font-semibold text-slate-900 text-3xl">{post.title}</h1>
-                    <span className="pt-2 font-normal text-base text-slate-700">{post.tags}, {post.createdAt}</span>
+                    <span className="pt-2 font-normal text-base text-slate-700">{post.tags.map(t => t.name)}, {post.createdAt}</span>
                 </div>
             
-            <div className="MetaData pt-3 mt-3">
+            <div className="MetaData pt-3 mt-3 flex flex-row justify-between align-middle items-center">
                 <div className="AuthorName flex  items-center justify-normal">
                     <img className="w-12 h-12 rounded-full" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"></img>
-                    <p className="px-2 text-slate-700 font-normal">{post.author.firstName}</p>
+                    <p className="px-2 text-slate-700 font-normal">{'Lucas'}</p>
                 </div>
                 <div>
                     <img></img>
                 </div>
+                <LikedZone post={post}/>
             </div>
             <span className=" my-3 border-slate-950 border-[0.3px]"></span>
             <section dangerouslySetInnerHTML={{__html: post.content}} className="Content pt-6 my-5 px-5 text-slate-900 text-base justify-normal">
@@ -60,7 +56,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
             </section>
             </div>
             <section className="Comments w-4/6">
-                <DisqusComments post={post}/>
+                
             </section>
         </div>
     )
