@@ -10,11 +10,13 @@ export default function LikedZone({post}) {
     const handleLike = () => {
         setLiked(!liked)
         const likePost =  async () => {
-            const res = await fetch(`https://eco-api.vercel.app/post/like/${post.id}`, {
+            const res = await fetch(`https://eco-api.vercel.app/post/${liked ? "des" : ""}like/${post.id}`, {
                 method: 'post',
+                mode: 'cors',
                 headers: {
                     Authtentication: 'Bearer ' + session?.access_token,
                     "Content-Type": "application/json",
+                    
                 }
 
             })
@@ -23,11 +25,10 @@ export default function LikedZone({post}) {
     }
 
     return <div>
-        <button onClick={handleLike}>
-            <div>
-                {liked ? <AiFillHeart color="red" width={'50px'} height={'50px'}/> : <AiOutlineHeart/>}
-                <p>Like</p>
-            </div>
-        </button>
+            <button onClick={handleLike}>
+                <div className='w-5 h-5'>
+                    {liked ? <AiFillHeart color="red" className="text-lg"/> : <AiOutlineHeart className="text-lg"/>}
+                </div>
+            </button>
     </div>;
 }

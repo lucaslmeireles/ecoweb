@@ -1,8 +1,11 @@
 'use client'
 
 import { signIn } from "next-auth/react"
+import { redirect,useRouter } from 'next/navigation';
+import { useEffect } from "react";
 
 export default function Signup(){
+    const {push} = useRouter()
     const handleSubmit = async (e : React.FormEvent) => {
         e.preventDefault()
         const email = e.target.email.value
@@ -31,6 +34,9 @@ export default function Signup(){
             password: password,
         })
     }
+    useEffect(() => {
+        push('/');
+     }, []);
 
     return (
         <>

@@ -28,7 +28,7 @@ export const Grid = (data: GridProps) => {
                         <div className='grid-cols-4 grid col-span-3 gap-10 grid-flow-row'>
                             {tag.posts.length!=0 && tag.posts.map((post) => {
                                 return (
-                                    <GridCard id={post.id} title={post.title} tags={post.tags} cover_img={post.cover_img} key={post.id}/>
+                                    <GridCard id={post.id}  title={post.title} tags={post.tags} cover_img={post.cover_img} key={post.id}/>
                                 )
                             })}
                         </div>

@@ -1,14 +1,13 @@
 'use client'
 import { Grid } from "@/components/grid";
 import { GridCard } from "@/components/gridcard";
-import { useSessionHook } from "@/hooks";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 
 
 export async function getMyPosts(user : string |undefined) {
-    const res  = await fetch('https://eco-api.vercel.app/post/myposts', { headers: {
+    const res  = await fetch('https://eco-api.vercel.app/users/myposts', { headers: {
         "Authorization" : 'Bearer ' +  user,
         "Content-Type": "application/json",
     }},)
@@ -16,21 +15,22 @@ export async function getMyPosts(user : string |undefined) {
     return data
 }
 export default  function UserMe() {
-    const [posts, setPosts] = useState([])
+    const [myposts, setMyPosts] = useState([])
+    const [likedPosts, setLikedPosts] = useState([])
     const [loading, setLoadign] = useState(false)
-    const {data: session} = useSession();
-    console.log(session)
-
+    const {data: session}=  useSession();
+    
     useEffect(()=>{
+        console.log(session)
         const getData = async () => {
             const data = await getMyPosts(session?.access_token)
-            console.log(data)
-            setPosts(data)
+            setMyPosts(data.myposts)
+            setLikedPosts(data.likedposts)
             setLoadign(true)
+            console.log(data.myposts)
         }
-        getData()
-    },[session?.access_token])
-    console.log(posts)
+        session ? getData() : null
+    },[session])
     return (
         <main className=" flex flex-col px-11 bg-slate-200">
             <div className="flex flex-col place-self-center align-middle justify-center my-5">
@@ -40,16 +40,19 @@ export default  function UserMe() {
             </div>
             <div className="flex flex-col">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
-                <div>
-                    {loading ? posts.map((post : any) => (
-                        <GridCard key={post.id} title={post.title} content={post.content} tags={post.tags} createdAt={post.createdAt} updatedAt={post.updatedAt} cover_img={post.cover_img} author={post.author} />
+                <div className="grid grid-cols-3 grid-rows-1">
+                    {loading ? myposts.map((post : any) => (
+                        <GridCard key={post.id} title={post.title} id={post.id} tags={post.tags}   cover_img={post.cover_img}/>
                     )) : <p>Carregando</p>}
                 </div>
             </div>
             <div>
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Curtidos</h2>
-                <div>
-                   
+                <div  className="grid grid-cols-3 grid-rows-1">
+                {loading ? likedPosts.map((post : any) => (
+
+                        <GridCard key={post.id}  status = {post.status } title={post.title} id={post.id} tags={post.tags}   cover_img={post.cover_img}/>
+                    )) : <p>Carregando</p>}
                 </div>
             </div>
         </main>

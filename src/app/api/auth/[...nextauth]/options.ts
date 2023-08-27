@@ -45,11 +45,11 @@ export const options: NextAuthOptions = {
         },
         async session({session, token, user}){
             const userInfo = await fetch('https://eco-api.vercel.app/users/me', {headers: {
-                "Authorization" : 'Bearer ' +  session?.access_token,
+                "Authorization" : 'Bearer ' +  token.access_token,
                 "Content-Type": "application/json",
             }})
-            user = await userInfo.json()
             session.access_token = token.access_token
+            session.user = await userInfo.json()
             return session
         }
     }
