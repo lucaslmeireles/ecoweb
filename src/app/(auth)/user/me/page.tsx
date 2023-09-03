@@ -1,12 +1,10 @@
 'use client'
-import { Grid } from "@/components/grid";
 import { GridCard } from "@/components/gridcard";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 
-
-export async function getMyPosts(user : string |undefined) {
+async function getMyPosts(user : string) {
     const res  = await fetch('https://eco-api.vercel.app/users/myposts', { headers: {
         "Authorization" : 'Bearer ' +  user,
         "Content-Type": "application/json",

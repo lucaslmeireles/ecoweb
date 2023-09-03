@@ -82,7 +82,7 @@ function CreatePost() {
                       body: JSON.stringify(body)
                   })
             const response = await res.json()
-            if (response.statusCode === 401) setModal(true) //Mudar para 201
+            if (response.statusCode === 201) setModal(true) //Mudar para 201
             console.log(response.statusCode)
             return  response
 

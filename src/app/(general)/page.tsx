@@ -1,8 +1,9 @@
 import { Grid } from '@/components/grid'
-import { getPosts } from './data'
+
 import { WeatherCard } from '@/components/weathercard'
 import  NewsCard  from '@/components/newscard'
 import { NewsGrid } from '@/components/newsgrid'
+import { getPosts } from '../data'
 
 async function Home() { 
   const data = await getPosts()

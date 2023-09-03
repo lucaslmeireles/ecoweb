@@ -48,7 +48,8 @@ export const options: NextAuthOptions = {
                 "Authorization" : 'Bearer ' +  token.access_token,
                 "Content-Type": "application/json",
             }})
-            session.access_token = token.access_token
+            
+            session.access_token = token.access_token as string
             session.user = await userInfo.json()
             return session
         }

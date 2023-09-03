@@ -10,8 +10,6 @@ export default function Signup(){
         e.preventDefault()
         const email = e.target.email.value
         const password = e.target.password.value
-        const firstName = e.target.firstName.value
-        const lastName = e.target.lastName.value
 
         const body = {
             email: email,
@@ -34,18 +32,16 @@ export default function Signup(){
             password: password,
         })
     }
-    useEffect(() => {
-        push('/');
-     }, []);
+    
 
     return (
         <>
             <form onSubmit={handleSubmit} className="flex flex-col">
-                <input type="text" name="firstName" id="firstName"  className="border"/>
-                <input type="text" name="lastName" id="lastName" />
                 <input type="email" name="email" id="email" />
                 <input type="password" name="password" id="password" />
                 <button type="submit">Enviar</button>
+
+                <p>nao tenho conta<a>entre aqui</a></p>
             </form>
         </>
     )

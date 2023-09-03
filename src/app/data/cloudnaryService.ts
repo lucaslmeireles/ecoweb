@@ -5,7 +5,7 @@ const cloudinaryConfig = {
   api_secret: 'wPGQrMm3UsEoKlegyZLtFOJZy9w' 
 };
 
-export async function uploadImageCloudnary(file){
+export async function uploadImageCloudnary(file : any){
     const formData = new FormData()
     formData.append('file', file)
     formData.append('upload_preset','jsevqznk')
