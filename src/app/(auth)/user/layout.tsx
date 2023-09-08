@@ -19,7 +19,7 @@ export default function AuthLayout({
       <meta charSet="utf-8" />
       <body className={inter.className}>
       <SessionProvider>
-        <main className='min-w-screen min-h-screen'> 
+        <main className='min-h-full min-w-full'>
         <nav className='h-16 bg-white drop-shadow-md flex justify-between items-center align-middle'>
           <Link href="/">
           <p className={`${quicksand.className} font-semibold text-4xl text-primary mx-3`}>

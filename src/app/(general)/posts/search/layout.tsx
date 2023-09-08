@@ -4,7 +4,7 @@ export default function SearchLayout({
     children: React.ReactNode
   }) {
     return (
-        <main>
+        <main className="w-full h-full">
             {children}
         </main>
     )

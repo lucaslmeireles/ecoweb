@@ -2,7 +2,7 @@ type Tag = {
   name: string
 }
  export async function getPosts() {
-    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/featured', {headers: {'Content-Type': 'application/json'}, next:{revalidate: 1} })
+    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/featured', {headers: {'Content-Type': 'application/json'}})
     const data = await res.json()
     return data
   }

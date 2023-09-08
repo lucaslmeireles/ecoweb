@@ -7,7 +7,9 @@ export default function UserProfile() {
     const {data: session} = useSession()
     //isLoggedin
     if (session?.access_token){
-        return <p>user</p>
+        return (
+            <img src={session?.user.avatar}></img>
+        )
     }
     return (
         <Link href="/api/auth/signin">

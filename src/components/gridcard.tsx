@@ -14,7 +14,7 @@ export type GridCardProps = {
 export const GridCard = (data: GridCardProps) => {
     const {title, tags ,id, cover_img, status} = data
     return (
-        <div className='flex flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg hover:shadow-slate-600 transition-all'>
+        <div className='flex my-2 flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg hover:shadow-slate-600 transition-all'>
             <Image src={cover_img} width={256} height={256} alt="" className='h-full w-full object-cover opacity-70'/>
             <div className=' flex justify-between align-middle items-center bottom-0 w-full h-16 absolute'>
                 {status &&  

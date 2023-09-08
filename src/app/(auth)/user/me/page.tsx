@@ -1,6 +1,7 @@
 'use client'
 import { GridCard } from "@/components/gridcard";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 
@@ -31,14 +32,25 @@ export default  function UserMe() {
     },[session])
     return (
         <main className=" flex flex-col px-11 bg-slate-200">
+            <nav className="flex flex-row place-self-end">
+                <ul className="flex flex-row gap-2">
+                    <li>
+                        <button className="bg-sky-500 w-full p-2 h-h-full my-3 text-white rounded">
+                        Logout
+                        </button>
+                        </li>
+                    <li><button className="bg-accent w-full p-2 h-h-full my-3 text-white rounded"><Link href={'/user/edit'}>Editar meu perfil</Link></button></li>
+                    <li><button className="bg-red-500  bg-opacity-40 w-full p-2 h-h-full my-3 hover:bg-opacity-100 text-white rounded"><Link href={'/user/bye'}>Excluir minha conta</Link></button></li>
+                </ul>
+            </nav>
             <div className="flex flex-col place-self-center align-middle justify-center my-5">
-                <img className="rounded-full my-2 w-28 border border-neutral-500" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"  alt="" />
-                <p className="text-slate-900 text-lg font-semibold">Lucas Meireles</p>
-                <p className="text-slate-700 text-base font-normal">lucas@meireles.com.br</p>
+                <img className="rounded-full my-2 w-28 border border-neutral-500" src={session?.user.avatar}  alt="" />
+                <p className="text-slate-900 text-lg font-semibold">{session?.user.firstName}</p>
+                <p className="text-slate-700 text-base font-normal">{session?.user?.email}</p>
             </div>
             <div className="flex flex-col">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
-                <div className="grid grid-cols-3 grid-rows-1">
+                <div className="snap-x w-full h-full my-2 flex flex-row gap-3 scroll-m-3 overflow-x-scroll scroll-smooth hover:scroll-auto ">
                     {loading ? myposts.map((post : any) => (
                         <GridCard key={post.id} title={post.title} id={post.id} tags={post.tags}   cover_img={post.cover_img}/>
                     )) : <p>Carregando</p>}
@@ -46,9 +58,8 @@ export default  function UserMe() {
             </div>
             <div>
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Curtidos</h2>
-                <div  className="grid grid-cols-3 grid-rows-1">
+                <div className="snap-x w-full h-full my-2 flex flex-row gap-3 scroll-m-3 overflow-x-scroll scroll-smooth hover:scroll-auto ">                
                 {loading ? likedPosts.map((post : any) => (
-
                         <GridCard key={post.id}  status = {post.status } title={post.title} id={post.id} tags={post.tags}   cover_img={post.cover_img}/>
                     )) : <p>Carregando</p>}
                 </div>

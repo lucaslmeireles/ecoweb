@@ -44,6 +44,7 @@ function CreatePost() {
         setEditorState(editorState)
     }
     const handleToggle = () => {
+        console.log(publisher)
         setPublisher(!publisher)
     }
     //https://www.cluemediator.com/how-to-get-selected-by-only-value-for-multi-select-in-react-select

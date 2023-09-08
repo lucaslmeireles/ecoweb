@@ -21,8 +21,12 @@ export default function SearchInput() {
     return (
         <>
         <form  onSubmit={redirect} className='flex justify-between align-center place-items-centers w-1/4 h-7' method="post" >
-        <input  onChange={handleOnChange} value={search} type='text' id="search" className='text-teal-50 bg-slate-600 px-3 w-full h-7 rounded-lg text-base focus:border-teal-300 shadow-md placeholder:text-teal-300 ' placeholder='Buscar'/>
-        <button type="submit">Pesquisar</button>
+        <div className="flex flex-row bg-slate-600 rounded-lg px-3">
+        <input  onChange={handleOnChange} value={search} type='text' id="search" className='text-teal-50  px-3 w-full bg-slate-600 h-7  text-base focus:border-none shadow-md placeholder:text-teal-300 ' placeholder='Buscar'/>
+            <button type="submit">
+            <BiSearchAlt className='text-teal-50'/>
+            </button>
+        </div>
         </form>  
         </>
     )
