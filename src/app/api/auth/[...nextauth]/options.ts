@@ -1,12 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
-import GitHubProvider from 'next-auth/providers/github'
 import Credentials from "next-auth/providers/credentials";
 export const options: NextAuthOptions = {
     providers: [
-        GitHubProvider({
-            clientId: process.env.GITHUB_ID as string,
-            clientSecret: process.env.GITHUB_SECRET as string
-        }),
         Credentials({
             name: "Credentials",
             credentials: {
@@ -50,6 +45,7 @@ export const options: NextAuthOptions = {
             }})
             
             session.access_token = token.access_token as string
+            session.expires = token.expires as string
             session.user = await userInfo.json()
             return session
         }

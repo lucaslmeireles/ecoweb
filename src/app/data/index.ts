@@ -1,3 +1,5 @@
+import { access } from "fs"
+
 type Tag = {
   name: string
 }
@@ -42,4 +44,15 @@ export async function getTags(){
       return {value: tag.name, label: tag.name}
   })
   return tagsList
+}
+
+export async function deleteAccount(access_token : string | undefined) {
+  const res = await fetch('https://eco-api.vercel.app/users/delete/myaccount', {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization" : 'Bearer ' +  access_token,
+            }
+        })
+  return res.status
 }

@@ -16,13 +16,13 @@ export default function Edit(){
             bio
         }
         console.log(body)
-        const res = await fetch('http://localhost:3001/users', { 
+        const res = await fetch('https://eco-api.vercel.app/users', { 
             method: 'PATCH',
-            body: JSON.stringify(body),
             headers: {
                 "Authorization" : 'Bearer ' +  session?.access_token,
                 "Content-Type": "application/json",
-            }
+            },
+            body: JSON.stringify(body),
         })
 
         const data = await res.json()
