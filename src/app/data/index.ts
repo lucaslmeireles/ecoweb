@@ -1,10 +1,10 @@
-import { access } from "fs"
+require('dotenv').config()
 
 type Tag = {
   name: string
 }
  export async function getPosts() {
-    const res = await fetch('https://eco-api-lucaslmeireles.vercel.app/post/featured', {headers: {'Content-Type': 'application/json'}})
+    const res = await fetch(process.env.BASE_URL_API + '/post/featured', {headers: {'Content-Type': 'application/json'}})
     const data = await res.json()
     return data
   }
@@ -37,7 +37,7 @@ export async function createPost(access_token : string, body : string) {
   return  response
 }
 
-export async function getTags(){
+export async function getTags() {
   const tags =  await fetch('https://eco-api.vercel.app/tags/', {headers: {'Content-Type': 'application/json'}})
   const data = await tags.json()
   const tagsList = data.map((tag:Tag) => {

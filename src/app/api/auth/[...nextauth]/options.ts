@@ -49,6 +49,10 @@ export const options: NextAuthOptions = {
             session.user = await userInfo.json()
             return session
         }
+    },
+    session: {
+        strategy: 'jwt',
+        maxAge: 60 * 60 * 60
     }
 }
 

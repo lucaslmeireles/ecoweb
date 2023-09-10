@@ -4,6 +4,8 @@ import { Inter, Quicksand } from 'next/font/google'
 import SearchInput from './searchInput'
 import {TiDocumentAdd} from 'react-icons/ti'
 import UserProfile from  '@/components/userProfile'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const inter = Inter({ subsets: ['latin'] })
 const quicksand = Quicksand({ subsets: ['latin'] })
@@ -44,6 +46,7 @@ export default function RootLayout({
         {children}
         </SessionProvider>
         <img src="/wave.svg" alt="wave" className="logo" />
+        <ToastContainer/>
         </body>
     </html>
   )

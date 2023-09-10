@@ -4,6 +4,7 @@ import { WeatherCard } from '@/components/weathercard'
 import  NewsCard  from '@/components/newscard'
 import { NewsGrid } from '@/components/newsgrid'
 import { getPosts } from '../data'
+import Tags from '@/components/Tags'
 
 async function Home() { 
   const data = await getPosts()
@@ -13,6 +14,8 @@ async function Home() {
     <div className='flex pt-12'>
     <div className='flex flex-col w-full mx-3  '>
             <Grid data={data}/>
+            <h1 className="text-3xl font-semibold pb-3">Tags</h1>
+            <Tags/>
     </div>     
       <div className='flex flex-col self-end'>
           <WeatherCard />

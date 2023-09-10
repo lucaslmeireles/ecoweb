@@ -12,6 +12,7 @@ import { Modal } from "@/components/modalSucess";
 import {FiUpload} from 'react-icons/fi'
 import { FileUploader } from "react-drag-drop-files";
 import { Toggle } from "@/components/toggle";
+import { toast } from "react-toastify";
 
 const hashConfig = {
     trigger: '#',
@@ -34,7 +35,7 @@ function CreatePost() {
     useEffect(() => {
         const getData = async () =>{
             const tagsList = await getTags()
-            setOptions([...tagsList, {value: 'novidade', label: 'Novidade', isFixed: true}])
+            setOptions([...tagsList])
             
         }
         getData()
@@ -82,10 +83,15 @@ function CreatePost() {
                       },
                       body: JSON.stringify(body)
                   })
-            const response = await res.json()
-            if (response.statusCode === 201) setModal(true) //Mudar para 201
-            console.log(response.statusCode)
-            return  response
+        const response = await res.json()
+        if (response.statusCode === 201) {
+            toast.success('Post criado com sucesso')
+            setModal(true)
+        } else{
+            toast.error('Erro ao criar post')
+        }
+        console.log(response.statusCode)
+        return  response
 
         
     }
@@ -132,7 +138,7 @@ function CreatePost() {
                 <div className="w-3/12 mx-3 bg-secondary  p-3 border rounded border-border">
                     <div className="flex space-x-2 flex-row align-middle items-center">
                         <img className="w-12 h-12" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/>
-                        <p>AutorName</p>
+                        <p>{session?.user.firstName}</p>
                     </div>
                     <div className="my-4 py-2 border rounded border-border px-2">
                     <label className="text-base font-semibold text-neutral-950">Tags</label>

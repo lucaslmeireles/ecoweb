@@ -5,13 +5,13 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useStore } from "@/app/store";
+import { toast } from "react-toastify";
 
 export default function LikedZone({post}) {
-    const {data : session} = useSession()
+    const {data : session, status} = useSession()
     const [liked, setLiked] = useState(false);
     const isLiked = useStore(state => state.isLiked)
     const state = useStore(state => state.posts)
-
     
     useEffect(()=> {
         const posts = isLiked(post.id)
@@ -31,11 +31,13 @@ export default function LikedZone({post}) {
                 },
                 
             })
+           if (res.status !== 200){
+               return toast.error('Você precisa estar logado para curtir')
+            } 
+            liked ? addPost(post.id) : removePost(post.id)
+            setLiked(!liked)
         }
-        liked ? addPost(post.id) : removePost(post.id)
-        setLiked(!liked)
         likePost()
-        console.log(state)
     }
 
     return <div>
