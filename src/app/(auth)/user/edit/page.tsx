@@ -17,7 +17,7 @@ export default function Edit(){
         }
         console.log(body)
         const res = await fetch('https://eco-api.vercel.app/users/edit/myaccount', { 
-            method: 'PATCH',
+            method: 'PUT',
             headers: {
                 "Authorization" : 'Bearer ' +  session?.access_token,
                 "Content-Type": "application/json",
