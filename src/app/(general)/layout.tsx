@@ -33,12 +33,6 @@ export default function RootLayout({
           <SearchInput/>
           <div className='flex space-x-2'>
           <ul>
-          <Link href="/posts/create"> 
-          <div className="w-32 h-10 bg-accent rounded-lg flex align-middle items-center justify-center flex-row">
-          <p className="text-white text-base font-semibold">Add post</p>
-          <TiDocumentAdd className='text-white w-5 h-5'/>
-          </div>
-          </Link>
           </ul>
             <UserProfile/>
           </div>
