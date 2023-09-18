@@ -45,7 +45,7 @@ export default function RootLayout({
         </nav>
         {children}
         </SessionProvider>
-        <img src="/wave.svg" alt="wave" className="logo" />
+        <img src="/wave.svg" alt="wave" className="w-full" />
         <ToastContainer/>
         </body>
     </html>

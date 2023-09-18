@@ -8,7 +8,9 @@ export default function UserProfile() {
     //isLoggedin
     if (session?.access_token){
         return (
-            <img src={session?.user.avatar}></img>
+            <Link href='/user/me'>
+            <img src={session?.user.avatar} className="w-10 h-10 rounded"></img>
+            </Link>
         )
     }
     return (

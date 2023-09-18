@@ -3,7 +3,6 @@ import DisqusComments from "./DisqusComponent";
 import moment from "moment";
 import { useSession } from "next-auth/react";
 
-
 export type  PostData = {
     id: string;
     title: string;
@@ -22,9 +21,11 @@ export type  PostData = {
 }
 
 const getPostById = async (id:string) => {
-    const data = await fetch(`https://eco-api.vercel.app/post/view/${id}`, {headers: {'Content-Type': 'application/json'}})
+    const data = await fetch(`https://eco-api.vercel.app/post/view/${id}`, {headers: {'Content-Type': 'application/json'}, next:{ revalidate: 1}})
     const post = await data.json()
+    console.log(post.data)
     return post.data
+    
 }
 
 const convertDate = (date) => {
@@ -36,7 +37,12 @@ const mapTags = (tags : {name:string}[]) => {
 }
 
 export default async function PostDetail({params} : {params: {id: string}}) {
+    
     const post = await getPostById(params.id)
+
+    if (!post.tags){
+        return <div>Carregando</div>
+    }
     return (
         <div className='flex flex-col align-middle items-center h-full bg-slate-100'>
             <div className='flex flex-col w-4/6'>
@@ -51,7 +57,7 @@ export default async function PostDetail({params} : {params: {id: string}}) {
             <div className="MetaData pt-3 mt-3 flex flex-row justify-between align-middle items-center">
                 <div className="AuthorName flex  items-center justify-normal">
                     <img className="w-12 h-12 rounded-full" src={post.author.avatar}></img>
-                    <p className="px-2 text-slate-700 font-normal">{post.author.firstname}</p>
+                    <p className="px-2 text-slate-700 font-normal">{post.author.firstName} {post.author.lastName}</p>
                 </div>
                 <LikedZone post={post}/>
             </div>

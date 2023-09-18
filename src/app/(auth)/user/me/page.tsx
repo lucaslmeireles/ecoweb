@@ -48,18 +48,18 @@ export default  function UserMe() {
             </nav>
             <div className="flex flex-col place-self-center align-middle justify-center my-5">
                 <img className="rounded-full my-2 w-28 border border-neutral-500" src={session?.user.avatar}  alt="" />
-                <p className="text-slate-900 text-lg font-semibold">{session?.user.firstName}</p>
+                <p className="text-slate-900 text-lg font-semibold">{session?.user.firstName} {session?.user.lastName}</p>
                 <p className="text-slate-700 text-base font-normal">{session?.user?.email}</p>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col snap-x overflow-x-auto">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
-                <div className="snap-x w-full h-full my-2 flex flex-row gap-3 scroll-m-3 overflow-x-scroll scroll-smooth hover:scroll-auto ">
+                <div className=" h-full my-2 flex gap-6 min-w-fit  ">
                     {loading ? <Myposts myposts={myposts}/> : <p>Carregando</p>}
                 </div>
             </div>
-            <div>
+            <div className="flex flex-col overflow-x-auto snap-x hover:scroll-auto">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Curtidos</h2>
-                <div className="snap-x w-full h-full my-2 flex flex-row gap-3 scroll-m-3 overflow-x-scroll scroll-smooth hover:scroll-auto ">                
+                <div className="snap-x w-full h-full my-2 flex flex-row gap-3">                
                 {loading ? <MyLikedPosts likedPosts={likedPosts}/>: <p>Carregando</p>}
                 </div>
             </div>

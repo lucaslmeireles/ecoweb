@@ -1,19 +1,31 @@
 'use client'
 
 import { useSession } from "next-auth/react"
+import { FileUploader } from "react-drag-drop-files"
+import { useState } from "react"
+import { uploadImageCloudnary } from "@/app/data/cloudnaryService";
+
+const fileTypes = ["JPG", "PNG", "GIF"];
 
 export default function Edit(){
     const {data : session} = useSession()
+    const [file, setFile] = useState(null);
+    const handleChange = (file) => {
+        setFile(file);
+        };
+
     const handleSubmit = async (e : React.FormEvent) => {
         e.preventDefault()
-        const nome = e.target.nome.value
-        const sobrenome = e.target.sobrenome.value
-        const bio = e.target.bio.value
+        const nome = e.target.nome.value || session?.user.firstName
+        const sobrenome = e.target.sobrenome.value || session?.user.lastName
+        const bio = e.target.bio.value || session?.user.bio
+        const avatar = await uploadImageCloudnary(file) || session?.user.avatar
 
         const body = {
-            nome,
-            sobrenome,
-            bio
+            firstName : nome,
+            lastName: sobrenome,
+            bio,
+            avatar
         }
         console.log(body)
         const res = await fetch('https://eco-api.vercel.app/users/edit/myaccount', { 
@@ -39,6 +51,15 @@ export default function Edit(){
                     <input type="text" name="sobrenome" id="sobrenome" className="rounded bg-slate-300 w-full" />
                     <label htmlFor="" className="text-accent font-semibold text-lg my-2">Bio</label>
                     <input type="text" name="bio" id="bio" className="rounded bg-slate-300 w-full" />
+                    <FileUploader 
+                          handleChange={handleChange} 
+                          name="file" 
+                          types={fileTypes} 
+                          multiple={false}
+                          classes="text-primary"
+                          >
+                        </FileUploader>
+
                     <button type="submit">Enviar</button>
                 </form>
             </div>

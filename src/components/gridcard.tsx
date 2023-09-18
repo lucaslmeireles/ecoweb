@@ -20,7 +20,7 @@ export const GridCard = (data: GridCardProps) => {
                 {status &&  
                 <div className="top-2 right-1 bg-slate-200 m-auto w-20 h-5 rounded-md ">
                     <p className="text-slate-900 text-base">
-                        Rasucnho
+                        Rascunho
                     </p>
                 </div> }
                

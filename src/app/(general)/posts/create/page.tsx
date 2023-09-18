@@ -1,15 +1,13 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { BiWorld } from "react-icons/bi";
 import MyEditor from "../create/myEditor";
 import { EditorState, convertToRaw } from "draft-js";
 import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
 import { uploadImageCloudnary } from "@/app/data/cloudnaryService";
 import CreatableSelect from 'react-select/creatable';
-import { createPost, getTags } from "@/app/data";
+import {  getTags } from "@/app/data";
 import { Modal } from "@/components/modalSucess";
-import {FiUpload} from 'react-icons/fi'
 import { FileUploader } from "react-drag-drop-files";
 import { Toggle } from "@/components/toggle";
 import { toast } from "react-toastify";
@@ -29,6 +27,8 @@ function CreatePost() {
     const [file, setFile] = useState(null);
     const [publisher, setPublisher] = useState(false);
     const [modal, setModal] = useState(false);
+
+
     const handleChange = (file) => {
     setFile(file);
     };
@@ -84,13 +84,14 @@ function CreatePost() {
                       body: JSON.stringify(body)
                   })
         const response = await res.json()
+
         if (response.statusCode === 201) {
             toast.success('Post criado com sucesso')
             setModal(true)
         } else{
             toast.error('Erro ao criar post')
         }
-        console.log(response.statusCode)
+        console.log(response)
         return  response
 
         
