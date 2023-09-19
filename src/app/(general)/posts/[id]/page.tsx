@@ -23,7 +23,6 @@ export type  PostData = {
 const getPostById = async (id:string) => {
     const data = await fetch(`https://eco-api.vercel.app/post/view/${id}`, {headers: {'Content-Type': 'application/json'}, next:{ revalidate: 1}})
     const post = await data.json()
-    console.log(post.data)
     return post.data
     
 }

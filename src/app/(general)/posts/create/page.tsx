@@ -84,7 +84,7 @@ function CreatePost() {
                       body: JSON.stringify(body)
                   })
         const response = await res.json()
-
+        console.log(response)
         if (response.statusCode === 201) {
             toast.success('Post criado com sucesso')
             setModal(true)

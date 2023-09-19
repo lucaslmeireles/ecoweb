@@ -1,6 +1,5 @@
 'use client'
 
-import { PostData } from "@/app/(general)/posts/[id]/page";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -10,14 +9,13 @@ import { toast } from "react-toastify";
 export default function LikedZone({post}) {
     const {data : session, status} = useSession()
     const [liked, setLiked] = useState(false);
-    const isLiked = useStore(state => state.isLiked)
+    const fetchLike = useStore(state => state.fetch)
     const state = useStore(state => state.posts)
-    
+
     useEffect(()=> {
-        const posts = isLiked(post.id)
-        console.log(posts)
+        const posts = state.posts
         setLiked(posts)
-    },[post.id, isLiked])
+    },[])
 
     const addPost = useStore(state => state.addPost)
     const removePost = useStore(state => state.removePost)
@@ -31,7 +29,9 @@ export default function LikedZone({post}) {
                 },
                 
             })
-           if (res.status !== 200){
+            const data = await res.json()
+            console.log(res)
+           if (res.status !== 201){
                return toast.error('Você precisa estar logado para curtir')
             } 
             liked ? addPost(post.id) : removePost(post.id)

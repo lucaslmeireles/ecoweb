@@ -9,7 +9,7 @@ export default function UserProfile() {
     //isLoggedin
     if (session?.access_token){
         return (
-            <div>
+            <div className="flex flex-row gap-2">
             <Link href="/posts/create"> 
             <div className="w-32 h-10 bg-accent rounded-lg flex align-middle items-center justify-center flex-row">
             <p className="text-white text-base font-semibold">Add post</p>
@@ -24,7 +24,7 @@ export default function UserProfile() {
     }
     return (
         <Link href="/api/auth/signin">
-        <button className="bg-accent p-2 ml-2 rounded hover:shadow ">Entrar</button>
+        <button className="bg-accent p-2 ml-2 rounded text-white hover:shadow ">Entrar</button>
         </Link>
     )
 }
