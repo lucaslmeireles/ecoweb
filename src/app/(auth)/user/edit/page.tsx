@@ -41,16 +41,16 @@ export default function Edit(){
     }
 
     return (
-        <main className="h-max mx-4" >
-            <div className="w-60 h-96">
-                <h1 className="text-accent font-semibold text-xl my-2">Edite seus dados</h1>
-                <form onSubmit={handleSubmit} method="post" className="bg-slate-300">
+        <main className="flex justify-center" >
+            <div className="flex align-middle">
+                <form onSubmit={handleSubmit} method="post" className="">
+                    <h1 className="text-accent font-semibold text-xl my-2">Edite seus dados</h1>
                     <label htmlFor="" className="text-accent font-semibold text-lg my-2">Nome</label>
                     <input type="text" name="nome" id="nome" className="rounded bg-slate-300 w-full" />
                     <label htmlFor="" className="text-accent font-semibold text-lg my-2">Sobrenome</label>
                     <input type="text" name="sobrenome" id="sobrenome" className="rounded bg-slate-300 w-full" />
                     <label htmlFor="" className="text-accent font-semibold text-lg my-2">Bio</label>
-                    <input type="text" name="bio" id="bio" className="rounded bg-slate-300 w-full" />
+                    <input type="text" name="bio" id="bio" className="rounded bg-slate-300 w-full mb-4" />
                     <FileUploader 
                           handleChange={handleChange} 
                           name="file" 
@@ -60,8 +60,11 @@ export default function Edit(){
                           >
                         </FileUploader>
 
-                    <button type="submit">Enviar</button>
+                    <button type="submit" className="bg-accent text-white mt-3 p-3 rounded hover:bg-primary">Enviar</button>
                 </form>
+                <div className="w-24 max-h-24">
+                    <img  className="rounded-full" src={session?.user.avatar || "https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png"}></img>
+                </div>
             </div>
             <footer>oi</footer>
         </main>
