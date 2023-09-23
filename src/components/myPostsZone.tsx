@@ -11,6 +11,6 @@ export default function Myposts({myposts}){
         
     return (
         myposts.length!= 0 && myposts.map((post : any) => (
-        <GridCard key={post.id} title={post.title} id={post.id} tags={post.tags}   cover_img={post.cover_img}/>
+        <GridCard key={post.id} title={post.title} id={post.id} tags={post.tags} myposts  cover_img={post.cover_img}/>
     )))
 }

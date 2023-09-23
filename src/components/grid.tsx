@@ -21,7 +21,6 @@ export const Grid = (data: GridProps) => {
     return (
         <div className=' flex flex-col w-full p-6'>
             {data.data.map((tag) => {
-                // colocar que se uma tag tiver 0 posts, não renderizar ela 
                 return (
                     <div key={tag.id} className=' flex flex-col w-full mb-8'>
                         <h2 className="text-3xl font-semibold pb-3">#{tag.name}</h2>

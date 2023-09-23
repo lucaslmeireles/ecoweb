@@ -15,7 +15,7 @@ export default function LikedZone({post}) {
     
     useEffect(()=> {
         const posts = isLiked(post.id)
-        console.log(posts)
+        console.log(state)
         setLiked(posts)
     },[post.id, isLiked])
 
@@ -31,9 +31,7 @@ export default function LikedZone({post}) {
                 },
                 
             })
-           if (res.status !== 200){
-               return toast.error('Você precisa estar logado para curtir')
-            } 
+           
             liked ? addPost(post.id) : removePost(post.id)
             setLiked(!liked)
         }

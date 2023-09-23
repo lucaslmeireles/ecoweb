@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {AiOutlineArrowRight} from 'react-icons/ai'
+import { DeleteButton } from "./deleteButton";
 
 export type GridCardProps = {
         id:number;
@@ -8,11 +9,13 @@ export type GridCardProps = {
         tags: string;
         cover_img: string;
         status?: boolean;
+        myposts?: boolean;
 }
 
 
+
 export const GridCard = (data: GridCardProps) => {
-    const {title, tags ,id, cover_img, status} = data
+    const {title, tags ,id, cover_img, status, myposts} = data
     return (
         <div className='flex my-2 flex-col overflow-hidden h-56 w-56 bg-slate-300 rounded-lg relative shadow hover:shadow-lg hover:shadow-slate-600 transition-all'>
             <Image src={cover_img} width={256} height={256} alt="" className='h-full w-full object-cover opacity-70'/>
@@ -23,8 +26,8 @@ export const GridCard = (data: GridCardProps) => {
                         Rascunho
                     </p>
                 </div> }
-               
-                <div className=' flex flex-col'>
+               {myposts && <DeleteButton postId={id}/>}
+                <div className=' flex flex-col self'>
                     <p className='font-semibold ml-2 mt-1 text-neutral-950 '>
                     {title}
                     </p>
