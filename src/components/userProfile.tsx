@@ -7,6 +7,7 @@ import { TiDocumentAdd } from "react-icons/ti"
 export default function UserProfile() {
     const {data: session} = useSession()
     //isLoggedin
+    console.log(session)
     if (session?.access_token){
         return (
             <div>
