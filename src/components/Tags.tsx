@@ -1,6 +1,7 @@
 import { getTags } from "@/app/data";
+import { Tag } from "@/types/dataFunctions.type";
 import Link from "next/link";
-import { Tag } from "@/app/data";
+
 
 export default async function Tags(){
     const tags = await getTags()

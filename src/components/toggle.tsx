@@ -1,4 +1,5 @@
-export function Toggle({toggled, setToggled}){
+export function Toggle({toggled, setToggled} : {toggled: boolean , setToggled:Function}){
+    
     return(
         <>
         <div className="flex flex-col">

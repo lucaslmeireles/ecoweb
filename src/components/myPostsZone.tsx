@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { GridCard } from "./gridcard";
+import { GridCardProps } from "@/types/dataFunctions.type";
 
-export default function Myposts({myposts}){
+export default function Myposts({myposts} : {myposts: GridCardProps[]}){
     if (myposts.length == 0) return (
         < div>
         <p>Parece que você ainda não tem nenhum pos, que tal criar um</p>
@@ -10,7 +11,7 @@ export default function Myposts({myposts}){
         )
         
     return (
-        myposts.length!= 0 && myposts.map((post : any) => (
-        <GridCard key={post.id} title={post.title} id={post.id} tags={post.tags} myposts  cover_img={post.cover_img}/>
+        myposts.length!= 0 && myposts.map((post : GridCardProps) => (
+        <GridCard key={post.id} title={post.title} id={post.id}  myposts cover_img={post.cover_img}/>
     )))
 }

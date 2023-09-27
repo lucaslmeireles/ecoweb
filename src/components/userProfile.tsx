@@ -1,14 +1,17 @@
 'use client'
 
+import { useStore } from "@/store"
 import { useSession } from "next-auth/react"
+import Image from "next/image"
 import Link from "next/link"
 import { TiDocumentAdd } from "react-icons/ti"
 
 export default function UserProfile() {
     const {data: session} = useSession()
-    //isLoggedin
-    console.log(session)
-    if (session?.access_token){
+    const fetchLikePosts = useStore(state => state.fetch)
+    
+    if (session?.access_token && session.user){
+        fetchLikePosts(session?.access_token)
         return (
             <div>
             <Link href="/posts/create"> 
@@ -18,7 +21,7 @@ export default function UserProfile() {
             </div>
             </Link>
             <Link href='/user/me'>
-            <img src={session?.user.avatar} className="w-10 h-10 rounded"></img>
+            <Image alt="user-image" src={session?.user.avatar} className="w-10 h-10 rounded"/>
             </Link>
             </div>
         )

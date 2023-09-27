@@ -1,20 +1,25 @@
+'use client'
 import {DiscussionEmbed} from "disqus-react"
+type DisqusType = {
+  id: string,
+  title: string
+}
 
-const DisqusComments = (post) => {
-  console.log(post)
+const DisqusComments = ({id, title}: DisqusType) => {
     const disqusShortname = "eco-7"
-    const disqusConfig = {
-      url: `https://eco-7.vercel.app/posts/${post.id}`,
-      identifier: post.id,
-      title: post.title,
-    }
     return (
       <div>
         <DiscussionEmbed
           shortname={disqusShortname}
-          config={disqusConfig}
+          config={
+            {
+                url: 'https://localhost:3000/',
+                identifier: id,
+                title: title,
+            }
+        }
         />
       </div>
     )
   }
-  export default DisqusComments;
+export default DisqusComments;

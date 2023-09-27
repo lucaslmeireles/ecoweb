@@ -1,7 +1,6 @@
 'use client'
-import { getWeather } from "@/app/data";
+import { fetchLocation, getWeather } from "@/app/data";
 import Image from "next/image";
-import { type } from "os";
 import { useEffect, useState } from "react";
 
 type WeatherData = {
@@ -10,11 +9,6 @@ type WeatherData = {
   city: string
 }
 
-const fetchLocation = async () => {
-  const response = await fetch('https://ipapi.co/json/', {headers: {'Content-Type': 'application/json'}, next: {revalidate: 60*60*60*24}})
-  const d = await response.json()
-  return d.city;
-}
 
 export function WeatherCard() {
     const [weatherData, setWeatherData] = useState({} as WeatherData)

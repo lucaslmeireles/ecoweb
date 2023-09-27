@@ -1,34 +1,13 @@
 import LikedZone from "@/components/likedZone";
 import DisqusComments from "./DisqusComponent";
 import moment from "moment";
-import { useSession } from "next-auth/react";
+import { getPostById } from "@/app/data";
+import { PostData } from "@/types/dataFunctions.type";
 
-export type  PostData = {
-    id: string;
-    title: string;
-    content: string;
-    tags: string;
-    createdAt: string;
-    updatedAt: string;
-    cover_img:string;
-    author: {
-        id: string;
-        email: string;
-        firstName: string;
-        lastName: string;
-    };
 
-}
 
-const getPostById = async (id:string) => {
-    const data = await fetch(`https://eco-api.vercel.app/post/view/${id}`, {headers: {'Content-Type': 'application/json'}, next:{ revalidate: 1}})
-    const post = await data.json()
-    console.log(post.data)
-    return post.data
-    
-}
 
-const convertDate = (date) => {
+const convertDate = (date: string) => {
      return moment(date).format('LL');    
 }
 
@@ -38,11 +17,12 @@ const mapTags = (tags : {name:string}[]) => {
 
 export default async function PostDetail({params} : {params: {id: string}}) {
     
-    const post = await getPostById(params.id)
+    const post = await getPostById(params.id) as PostData
 
     if (!post.tags){
         return <div>Carregando</div>
     }
+
     return (
         <div className='flex flex-col align-middle items-center h-full bg-slate-100'>
             <div className='flex flex-col w-4/6'>
@@ -66,8 +46,9 @@ export default async function PostDetail({params} : {params: {id: string}}) {
                 
             </section>
             </div>
+            <span className="w-9/12 h-1 bg-slate-700 mb-4"></span>
             <section className="Comments w-4/6">
-                {/* <DisqusComments id={post.id}/> */}
+                <DisqusComments id={post.id} title={post.title}/>
             </section>
         </div>
     )

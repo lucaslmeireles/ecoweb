@@ -1,14 +1,20 @@
+import { Tag } from "@/types/dataFunctions.type"
+
 require('dotenv').config()
 
-type Tag = {
-  name: string
-}
- export async function getPosts() {
+
+export async function getPosts() {
     const res = await fetch(process.env.BASE_URL_API + '/post/featured', {headers: {'Content-Type': 'application/json'}})
     const data = await res.json()
     return data
   }
   
+export const getPostById = async (id:string) => {
+    const data = await fetch(process.env.BASE_URL_API + `/post/view/${id}`, {headers: {'Content-Type': 'application/json'}, next:{ revalidate: 1}})
+    const post = await data.json()
+    return post.data
+}
+
 export async function getWeather(city: string) {
     const res = await fetch(`https://api.weatherapi.com/v1/current.json?q=${city}&key=834b6a1ff61a4d34b7c170901231707`, {next: {revalidate: 60*60*60*2}})
     const data = await res.json()
@@ -22,7 +28,7 @@ export async function getNews() {
 }
 
 export async function createPost(access_token : string, body : string) {
-  const res = await fetch('https://eco-api.vercel.app/post/create', {
+  const res = await fetch(process.env.BASE_URL_API +'/post/create', {
             mode: 'cors',
             method: 'POST',
             headers: {
@@ -36,7 +42,7 @@ export async function createPost(access_token : string, body : string) {
 }
 
 export async function getTags() {
-  const tags =  await fetch('https://eco-api.vercel.app/tags/', {headers: {'Content-Type': 'application/json'}})
+  const tags =  await fetch(process.env.BASE_URL_API + '/tags/', {headers: {'Content-Type': 'application/json'}})
   const data = await tags.json()
   const tagsList = data.map((tag:Tag) => {
       return {value: tag.name, label: tag.name}
@@ -45,7 +51,7 @@ export async function getTags() {
 }
 
 export async function deleteAccount(access_token : string | undefined) {
-  const res = await fetch('https://eco-api.vercel.app/users/delete/myaccount', {
+  const res = await fetch(process.env.BASE_URL_API + '/users/delete/myaccount', {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -53,4 +59,16 @@ export async function deleteAccount(access_token : string | undefined) {
             }
         })
   return res.status
+}
+
+export async function getSearchResults(q:string | null){
+  const response = await fetch(`https://eco-api.vercel.app/post/search?q=${q}`)
+  const data = await response.json()
+  return data
+}
+
+export const fetchLocation = async () => {
+  const response = await fetch('https://ipapi.co/json/', {headers: {'Content-Type': 'application/json'}, next: {revalidate: 60*60*60*24}})
+  const d = await response.json()
+  return d.city;
 }

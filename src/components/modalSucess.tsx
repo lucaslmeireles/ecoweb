@@ -1,6 +1,6 @@
 import {AiOutlineCloseCircle} from 'react-icons/ai'
 
-export function Modal({setModal, modal}){
+export function Modal({setModal, modal} : {setModal: Function , modal: boolean}){
     return (
         <>
         <div className="flex absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50 bg-slate-500 bg-opacity-70">
