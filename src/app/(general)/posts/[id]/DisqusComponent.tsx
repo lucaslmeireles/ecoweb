@@ -1,7 +1,7 @@
 'use client'
 import {DiscussionEmbed} from "disqus-react"
 type DisqusType = {
-  id: string,
+  id: string | number,
   title: string
 }
 

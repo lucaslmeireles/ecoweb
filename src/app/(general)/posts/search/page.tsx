@@ -23,10 +23,10 @@ export default function SearchPage() {
     
     const ShowPost = () => {
         if(!search) return <h1>Carregando...</h1>
-        if(post.length === 0 ) return (<h1>Nenhum resultado encontrado</h1>)
-        
+        if(post.length == 0 ) return (<h1>Nenhum resultado encontrado</h1>)
+        console.log(post)
         return (<> 
-        {post.length != 0 && post.map(post => {
+        {post.length !== 0 && post.map(post => {
          return (
             <div key={post.id} className="flex flex-row place-items-center hover:shadow-md hover:shadow-slate-400 rounded-md">
             <GridCard key={post.id} cover_img={post.cover_img} id={post.id} title={post.title}/>

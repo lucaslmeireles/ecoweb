@@ -1,7 +1,5 @@
 import { Tag } from "@/types/dataFunctions.type"
 
-require('dotenv').config()
-
 
 export async function getPosts() {
     const res = await fetch(process.env.BASE_URL_API + '/post/featured', {headers: {'Content-Type': 'application/json'}})
@@ -42,13 +40,14 @@ export async function createPost(access_token : string, body : string) {
 }
 
 export async function getTags() {
-  const tags =  await fetch(process.env.BASE_URL_API + '/tags/', {headers: {'Content-Type': 'application/json'}})
+  const tags =  await fetch( process.env.BASE_URL_API + '/tags', {headers: {'Content-Type': 'application/json'}})
   const data = await tags.json()
   const tagsList = data.map((tag:Tag) => {
       return {value: tag.name, label: tag.name}
   })
   return tagsList
 }
+
 
 export async function deleteAccount(access_token : string | undefined) {
   const res = await fetch(process.env.BASE_URL_API + '/users/delete/myaccount', {
@@ -62,7 +61,7 @@ export async function deleteAccount(access_token : string | undefined) {
 }
 
 export async function getSearchResults(q:string | null){
-  const response = await fetch(`https://eco-api.vercel.app/post/search?q=${q}`)
+  const response = await fetch(process.env.BASE_URL_API + `/post/search?q=${q}`)
   const data = await response.json()
   return data
 }

@@ -1,29 +1,28 @@
 'use client'
 
-import { PostData } from "@/app/(general)/posts/[id]/page";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useStore } from "@/app/store";
 import { toast } from "react-toastify";
 
-export default function LikedZone({post}) {
+export default function LikedZone({id}:{id: number}) {
     const {data : session, status} = useSession()
     const [liked, setLiked] = useState(false);
     const isLiked = useStore(state => state.isLiked)
     const state = useStore(state => state.posts)
     
     useEffect(()=> {
-        const posts = isLiked(post.id)
-        console.log(state)
-        setLiked(posts)
-    },[post.id, isLiked])
+        const liked = isLiked(id)
+        console.log(liked)
+        setLiked(liked)
+    },[id, isLiked])
 
     const addPost = useStore(state => state.addPost)
     const removePost = useStore(state => state.removePost)
     const handleLike = () => {
         const likePost =  async () => {
-            const res = await fetch(`https://eco-api.vercel.app/post/${liked ? "des" : ""}like/${post.id}`, {
+            const res = await fetch(`https://eco-api.vercel.app/post/${liked ? "des" : ""}like/${id}`, {
                 method: 'post',
                 headers: {
                     "Authorization" : 'Bearer ' +  session?.access_token,
@@ -31,8 +30,8 @@ export default function LikedZone({post}) {
                 },
                 
             })
-           
-            liked ? addPost(post.id) : removePost(post.id)
+            
+            liked ? addPost(id) : removePost(id)
             setLiked(!liked)
         }
         likePost()

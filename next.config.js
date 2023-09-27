@@ -15,6 +15,9 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  env: {
+    BASE_URL_API : process.env.BASE_URL_API
+  }
 };
 
 module.exports = nextConfig;

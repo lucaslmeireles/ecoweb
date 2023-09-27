@@ -1,4 +1,6 @@
-export function Toggle({toggled, setToggled} : {toggled: boolean , setToggled:Function}){
+import { Dispatch, SetStateAction } from "react";
+
+export function Toggle({toggled, setToggled} : {toggled: boolean , setToggled: Function}){
     
     return(
         <>

@@ -36,10 +36,10 @@ export default async function PostDetail({params} : {params: {id: string}}) {
             
             <div className="MetaData pt-3 mt-3 flex flex-row justify-between align-middle items-center">
                 <div className="AuthorName flex  items-center justify-normal">
-                    <img className="w-12 h-12 rounded-full" src={post.author.avatar}></img>
+                    <img className="w-12 h-12 rounded-full" src={post.author.avatar} alt={`profile-pic of ${post.author.firstName}`} ></img>
                     <p className="px-2 text-slate-700 font-normal">{post.author.firstName} {post.author.lastName}</p>
                 </div>
-                <LikedZone post={post}/>
+                <LikedZone id={post.id as number}/>
             </div>
             <span className=" my-3 border-slate-950 border-[0.3px]"></span>
             <section dangerouslySetInnerHTML={{__html: post.content}} className="Content pt-6 my-5 px-5 text-slate-900 text-base justify-normal">

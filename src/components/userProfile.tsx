@@ -1,5 +1,4 @@
 'use client'
-
 import { useStore } from "@/store"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
@@ -8,10 +7,8 @@ import { TiDocumentAdd } from "react-icons/ti"
 
 export default function UserProfile() {
     const {data: session} = useSession()
-    const fetchLikePosts = useStore(state => state.fetch)
-    
+
     if (session?.access_token && session.user){
-        fetchLikePosts(session?.access_token)
         return (
             <div>
             <Link href="/posts/create"> 

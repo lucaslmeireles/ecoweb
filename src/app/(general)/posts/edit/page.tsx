@@ -1,17 +1,19 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import MyEditor from "../create/myEditor";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
 import { uploadImageCloudnary } from "@/app/data/cloudnaryService";
 import CreatableSelect from 'react-select/creatable';
-import {  getTags } from "@/app/data";
+import {  getPostById, getTags } from "@/app/data";
 import { Modal } from "@/components/modalSucess";
 import { FileUploader } from "react-drag-drop-files";
 import { Toggle } from "@/components/toggle";
 import { toast } from "react-toastify";
-import { Tag } from "@/types/dataFunctions.type";
+import { PostData, Tag } from "@/types/dataFunctions.type";
+import { useSearchParams } from "next/navigation";
+import htmlToDraft from 'html-to-draftjs'
 
 const hashConfig = {
     trigger: '#',
@@ -20,7 +22,7 @@ const hashConfig = {
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-function CreatePost() {
+function EditPost() {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [choices, setChoices] = useState([] as Tag[])
@@ -28,7 +30,22 @@ function CreatePost() {
     const [file, setFile] = useState(null);
     const [publisher, setPublisher] = useState(false);
     const [modal, setModal] = useState(false);
+    const [postInfo , setPostInfo] = useState({})
+    const postId  = useSearchParams().get('id')
 
+    useEffect(() => {
+        const getPostData = async () => {
+            if(!postId) return null
+            const data = await getPostById(postId) as PostData
+            const blocksFromHtml = htmlToDraft(data.content);
+            const { contentBlocks, entityMap } = blocksFromHtml;
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            setEditorState(EditorState.createWithContent(contentState));
+            setPostInfo({title: data.title, desc : data.small_text})
+            //tags já selecionadas
+        }
+        getPostData()
+    },[postId])
 
     const handleChange = (file : any) => {
     setFile(file);
@@ -113,11 +130,11 @@ function CreatePost() {
                     <div className="flex flex-row">
                         <div className="flex flex-col w-2/5 x-3 mx-2">
                             <label htmlFor="" className="text-base font-medium text-neutral-950">Title</label>
-                            <input type="text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" name="title" id="" />
+                            <input type="text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" name="title" id="" value={postInfo.title }/>
                         </div>
                         <div className="flex flex-col w-3/5 px-3 mx-2">
                             <label htmlFor="" className="text-base font-medium text-neutral-950">Description</label>
-                            <input type="text" name="small_text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" id="" />
+                            <input type="text" name="small_text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" id=""  value={postInfo.desc}/>
                         </div>
                     </div>
                     <div className="my-2 py-4 mx-2 h-6/12">
@@ -157,4 +174,4 @@ function CreatePost() {
     )
 }
 
-export default CreatePost
+export default EditPost

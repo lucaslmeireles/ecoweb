@@ -1,10 +1,12 @@
 'use client'
 
 import { useSession } from "next-auth/react"
-import { AiFillDelete } from "react-icons/ai"
+import { useRouter } from "next/navigation"
+import { AiFillDelete, AiFillEdit } from "react-icons/ai"
 
 export function DeleteButton({postId} : {postId: number}){
     const {data : session} = useSession()
+    const router = useRouter()
     const handleDelete = async() => {
         const res = await fetch(`https://eco-api.vercel.app/post/delete/${postId}`, {
             method: 'delete',
@@ -15,10 +17,17 @@ export function DeleteButton({postId} : {postId: number}){
         })
         console.log(res)
     }
+    const handleEdit = async() => {
+        router.push(`/posts/edit?id=${postId}`,  )
+
+    }
     return (
         <div className="bg-red-200 m-auto w-fit self-start  rounded-md align-middle hover:bg-red-500">
                <button className="text-slate-900 p-2 text-xs hover:text-white" onClick={handleDelete} type="submit">
                    <AiFillDelete/>
+               </button>
+               <button className="text-slate-900 p-2 text-xs hover:text-white" onClick={handleEdit} type="submit">
+                   <AiFillEdit/>
                </button>
         </div>
     )

@@ -7,10 +7,9 @@ export type  PostData = {
     id: number | string;
     title: string;
     content: string;
-    tags: [
+    tags: {
         name: string,
-        label: string
-    ];
+    }[];
     createdAt: string;
     updatedAt: string;
     cover_img:string;
@@ -19,6 +18,7 @@ export type  PostData = {
         email: string;
         firstName: string;
         lastName: string;
+        avatar: string;
     };
     small_text: string;
 
