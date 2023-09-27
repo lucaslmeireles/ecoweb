@@ -18,7 +18,7 @@ export function DeleteButton({postId} : {postId: number}){
         console.log(res)
     }
     const handleEdit = async() => {
-        router.push(`/posts/edit?id=${postId}`,  )
+        router.push(`/posts/edit/${postId}`,  )
 
     }
     return (

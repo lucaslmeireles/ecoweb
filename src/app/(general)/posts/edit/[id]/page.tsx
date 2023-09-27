@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import MyEditor from "../create/myEditor";
+import MyEditor from "../../create/myEditor";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { useSession } from "next-auth/react";
 import draftToHtml from 'draftjs-to-html';
@@ -22,7 +22,7 @@ const hashConfig = {
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-function EditPost() {
+function EditPost({params} : {params: {id: string}}) {
     const {data : session} = useSession()
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [choices, setChoices] = useState([] as Tag[])
@@ -30,8 +30,9 @@ function EditPost() {
     const [file, setFile] = useState(null);
     const [publisher, setPublisher] = useState(false);
     const [modal, setModal] = useState(false);
-    const [postInfo , setPostInfo] = useState({})
-    const postId  = useSearchParams().get('id')
+    const [title , setTitle] = useState('');
+    const [desc , setDesc] = useState('');
+    const postId  = params.id
 
     useEffect(() => {
         const getPostData = async () => {
@@ -41,8 +42,10 @@ function EditPost() {
             const { contentBlocks, entityMap } = blocksFromHtml;
             const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
             setEditorState(EditorState.createWithContent(contentState));
-            setPostInfo({title: data.title, desc : data.small_text})
+            setTitle(data.title)
+            setDesc(data.small_text)
             //tags já selecionadas
+            console.log(data)
         }
         getPostData()
     },[postId])
@@ -91,9 +94,9 @@ function EditPost() {
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl
-        const res = await fetch('https://eco-api.vercel.app/post/create', {
+        const res = await fetch(`https://eco-api.vercel.app/post/edit/${postId}`, {
                       mode: 'cors',
-                      method: 'POST',
+                      method: 'PUT',
                       headers: {
                           "Authorization" : 'Bearer ' +  session?.access_token,
                           "Content-Type": "application/json",
@@ -113,6 +116,7 @@ function EditPost() {
 
         
     }
+
     return (
         <>
         {modal && <Modal setModal={setModal} modal={modal}/>}
@@ -129,12 +133,13 @@ function EditPost() {
                 <div className="flex w-9/12 flex-col py-2  bg-backgorund border rounded border-border">
                     <div className="flex flex-row">
                         <div className="flex flex-col w-2/5 x-3 mx-2">
+                            {/* ON CHANGE MEXER AQUI */}
                             <label htmlFor="" className="text-base font-medium text-neutral-950">Title</label>
-                            <input type="text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" name="title" id="" value={postInfo.title }/>
+                            <input type="text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" name="title" id="" value={title} onChange={e => setTitle(e.target.value)}/>
                         </div>
                         <div className="flex flex-col w-3/5 px-3 mx-2">
                             <label htmlFor="" className="text-base font-medium text-neutral-950">Description</label>
-                            <input type="text" name="small_text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" id=""  value={postInfo.desc}/>
+                            <input type="text" name="small_text" className="focus:outline-none focus:ring focus:border-[#5B8259] h-7 rounded bg-[#d4d4d4]" id=""  value={desc} onChange={e => setDesc(e.target.value)}/>
                         </div>
                     </div>
                     <div className="my-2 py-4 mx-2 h-6/12">
@@ -160,7 +165,8 @@ function EditPost() {
                     </div>
                     <div className="my-4 py-2 border rounded border-border px-2">
                     <label className="text-base font-semibold text-neutral-950">Tags</label>
-                    <CreatableSelect isMulti options={options} onChange={onSelectedTag}/>
+                    <CreatableSelect isMulti options={options} onChange={onSelectedTag}/> 
+                    {/* mexer aqui tbm */}
                     </div>
                     <div className="flex flex-col">
                     <label>Publisher</label>
