@@ -9,12 +9,10 @@ type Tag = {
     return data
   }
   
-export async function getWeather() {
-    const response = await fetch('https://ipapi.co/json/', {headers: {'Content-Type': 'application/json'}, next: {revalidate: 60*60*60*24}})
-    const locationdata = await response.json()
-    const res = await fetch(`https://api.weatherapi.com/v1/current.json?q=${locationdata.city}&key=834b6a1ff61a4d34b7c170901231707`, {next: {revalidate: 60*60*60*2}})
+export async function getWeather(city: string) {
+    const res = await fetch(`https://api.weatherapi.com/v1/current.json?q=${city}&key=834b6a1ff61a4d34b7c170901231707`, {next: {revalidate: 60*60*60*2}})
     const data = await res.json()
-    return { data: data.current, city: locationdata.city }
+    return { temp: data.current.temp_c,icon: data.current.condition.icon }
   }
 
 export async function getNews() {
