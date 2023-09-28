@@ -1,13 +1,17 @@
 'use client'
 
+import MyPostContext from "@/hooks/useContext"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { useContext } from "react"
 import { AiFillDelete, AiFillEdit } from "react-icons/ai"
 
 export function DeleteButton({postId} : {postId: number}){
     const {data : session} = useSession()
+    const [myposts, setMyPosts] = useContext(MyPostContext)
     const router = useRouter()
     const handleDelete = async() => {
+        setMyPosts(() => myposts.filter((post) => post.id === postId))
         const res = await fetch(`https://eco-api.vercel.app/post/delete/${postId}`, {
             method: 'delete',
             headers: {

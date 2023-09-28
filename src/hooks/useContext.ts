@@ -1,4 +1,6 @@
 'use client'
 import { createContext } from 'react';
 
-export const MyPostContext  = createContext([])
+const MyPostContext  = createContext([[], () => {}])
+
+export default MyPostContext
