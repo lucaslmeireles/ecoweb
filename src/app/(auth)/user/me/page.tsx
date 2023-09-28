@@ -6,7 +6,7 @@ import Myposts from "@/components/myPostsZone";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import {MyPostsContext} from '@/hooks/'
 
 async function getMyPosts(user : string) {
     const res  = await fetch('https://eco-api.vercel.app/users/myposts', { headers: {
@@ -51,6 +51,7 @@ export default  function UserMe() {
                 <p className="text-slate-900 text-lg font-semibold">{session?.user.firstName} {session?.user.lastName}</p>
                 <p className="text-slate-700 text-base font-normal">{session?.user?.email}</p>
             </div>
+            <MyPostsContext./>
             <div className="flex flex-col snap-x overflow-x-auto">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
                 <div className=" h-full my-2 flex gap-6 min-w-fit  ">
