@@ -7,8 +7,9 @@ import { TiDocumentAdd } from "react-icons/ti"
 
 export default function UserProfile() {
     const {data: session} = useSession()
-
+    const fetch = useStore(state => state.fetch)
     if (session?.access_token && session.user){
+        fetch(session?.access_token)
         return (
             <div className="flex flex-row gap-3">
             <Link href="/posts/create"> 

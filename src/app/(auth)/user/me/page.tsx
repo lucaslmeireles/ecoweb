@@ -6,7 +6,7 @@ import Myposts from "@/components/myPostsZone";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import MyPostContext from '@/hooks/useContext'
 
 async function getMyPosts(user : string) {
     const res  = await fetch('https://eco-api.vercel.app/users/myposts', { headers: {
@@ -51,12 +51,14 @@ export default  function UserMe() {
                 <p className="text-slate-900 text-lg font-semibold">{session?.user.firstName} {session?.user.lastName}</p>
                 <p className="text-slate-700 text-base font-normal">{session?.user?.email}</p>
             </div>
+            <MyPostContext.Provider value={[myposts, setMyPosts]}>
             <div className="flex flex-col snap-x overflow-x-auto">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Meus posts</h2>
                 <div className=" h-full my-2 flex gap-6 min-w-fit  ">
                     {loading ? <Myposts myposts={myposts}/> : <p>Carregando</p>}
                 </div>
             </div>
+            </MyPostContext.Provider>
             <div className="flex flex-col overflow-x-auto snap-x hover:scroll-auto">
                 <h2 className="text-2xl font-semibold text-slate-900 my-3">Curtidos</h2>
                 <div className="snap-x w-full h-full my-2 flex flex-row gap-3">                
