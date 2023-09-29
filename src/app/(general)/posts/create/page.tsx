@@ -70,7 +70,7 @@ function CreatePost() {
             content: contentHtml,
             tags,
             cover_img: imgurl,
-            status: publisher
+            status: publisher ? 'true' : 'false'
         }
         console.log(JSON.stringify(body))
         // da pra virar função , coloca a baseUrl

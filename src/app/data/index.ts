@@ -2,7 +2,7 @@ import { Tag } from "@/types/dataFunctions.type"
 
 
 export async function getPosts() {
-    const res = await fetch(process.env.BASE_URL_API + '/post/featured', {headers: {'Content-Type': 'application/json'}})
+    const res = await fetch(process.env.BASE_URL_API + '/post/featured', {headers: {'Content-Type': 'application/json'}, next: {revalidate: 1}})
     const data = await res.json()
     return data
   }

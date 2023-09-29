@@ -11,7 +11,7 @@ export function DeleteButton({postId} : {postId: number}){
     const [myposts, setMyPosts] = useContext(MyPostContext)
     const router = useRouter()
     const handleDelete = async() => {
-        setMyPosts(() => myposts.filter((post) => post.id === postId))
+        setMyPosts(() => myposts.filter((post) => post.id !== postId))
         const res = await fetch(`https://eco-api.vercel.app/post/delete/${postId}`, {
             method: 'delete',
             headers: {

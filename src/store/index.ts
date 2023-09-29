@@ -27,8 +27,14 @@ export const useStore = create<LikedState>()(
                     "Authorization" : 'Bearer ' +  bearer,
                     "Content-Type": "application/json",
                 }})
-                const post = await res.json()
-                set(() => ({posts : [...get().posts, {id:post.id, liked:post.liked} as Post]}))
+                if (res.status === 401) {
+                    throw new Error('Unauthorized')
+                }
+                if (res.status === 500){
+                    throw new Error('Internal Server Error')
+                }
+                const posts = await res.json()
+                set(() => ({posts : [...get().posts, ...posts.map((post:Post) => ({id: post.id, liked: true}))]}))
                 console.log(get().posts)
             }
     }), 
