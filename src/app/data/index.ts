@@ -40,8 +40,12 @@ export async function createPost(access_token : string, body : string) {
 }
 
 export async function getTags() {
-  const tags =  await fetch( process.env.BASE_URL_API + '/tags', {headers: {'Content-Type': 'application/json'}})
+  const tags =  await fetch( process.env.BASE_URL_API + '/tags', {headers: {'Content-Type': 'application/json'}, next: {revalidate : 60*60}})
+  if (!tags.ok) {
+      await fetch( process.env.BASE_URL_API + '/tags', {headers: {'Content-Type': 'application/json'}, next: {revalidate : 60*60}})
+  }
   const data = await tags.json()
+  console.log(data)
   const tagsList = data.map((tag:Tag) => {
       return {value: tag.name, label: tag.name}
   })

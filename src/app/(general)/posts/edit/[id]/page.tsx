@@ -39,6 +39,7 @@ function EditPost({params} : {params: {id: string}}) {
             if(!postId) return null
             const data = await getPostById(postId) as PostData
             const blocksFromHtml = htmlToDraft(data.content);
+            console.log(blocksFromHtml)
             const { contentBlocks, entityMap } = blocksFromHtml;
             const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
             setEditorState(EditorState.createWithContent(contentState));
@@ -104,8 +105,8 @@ function EditPost({params} : {params: {id: string}}) {
                       body: JSON.stringify(body)
                   })
         const response = await res.json()
-
-        if (response.statusCode === 201) {
+        console.log(response)
+        if (response.statusCode === 200) {
             toast.success('Post criado com sucesso')
             setModal(true)
         } else{
