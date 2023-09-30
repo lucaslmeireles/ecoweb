@@ -34,8 +34,11 @@ export const useStore = create<LikedState>()(
                     throw new Error('Internal Server Error')
                 }
                 const posts = await res.json()
-                set(() => ({posts : [...get().posts, ...posts.map((post:Post) => ({id: post.id, liked: true}))]}))
-                console.log(get().posts)
+                if (posts.likedposts.length === 0) {
+                    return set(() => ({posts : []}))
+                }
+                set(() => ({posts : [...get().posts, ...posts.map((post:Post) => (console.log(post)))]}))
+                return get().posts
             }
     }), 
     {
