@@ -1,1 +1,2 @@
-print('Ola mundo')
+list = ['bombaclap']
+

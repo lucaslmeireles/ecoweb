@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useStore } from "@/app/store";
+import { useStore } from "@/store";
 import { toast } from "react-toastify";
 
 export default function LikedZone({id}:{id: number}) {
@@ -12,11 +12,10 @@ export default function LikedZone({id}:{id: number}) {
     const isLiked = useStore(state => state.isLiked)
     const state = useStore(state => state.posts)
     
+    // resolver isso
     useEffect(()=> {
-        const liked = isLiked(id)
-        console.log(liked)
-        setLiked(liked)
-    },[id, isLiked])
+        console.log(isLiked(id))
+    },[])
 
     const addPost = useStore(state => state.addPost)
     const removePost = useStore(state => state.removePost)

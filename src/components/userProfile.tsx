@@ -3,13 +3,18 @@ import { useStore } from "@/store"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect } from "react"
 import { TiDocumentAdd } from "react-icons/ti"
 
 export default function UserProfile() {
     const {data: session} = useSession()
     const fetch = useStore(state => state.fetch)
+    useEffect(() => {
+        if (session?.access_token && session.user){
+            fetch(session.access_token)
+        }
+    },[session?.access_token, session?.user, fetch])
     if (session?.access_token && session.user){
-        fetch(session?.access_token)
         return (
             <div className="flex flex-row gap-3">
             <Link href="/posts/create"> 
@@ -29,7 +34,7 @@ export default function UserProfile() {
     }
     return (
         <Link href="/api/auth/signin">
-        <button className="bg-accent p-2 ml-2 rounded hover:shadow ">Entrar</button>
+        <button className="bg-accent p-2 ml-2 rounded hover:shadow text-white ">Entrar</button>
         </Link>
     )
 }

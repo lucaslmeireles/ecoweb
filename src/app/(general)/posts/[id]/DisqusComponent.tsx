@@ -14,7 +14,7 @@ const DisqusComments = ({id, title}: DisqusType) => {
           config={
             {
                 url: 'https://localhost:3000/',
-                identifier: id,
+                identifier: id as string,
                 title: title,
             }
         }
