@@ -1,32 +1,22 @@
-import { Grid } from '@/components/grid'
+import { Grid } from "@/components/grid";
 
-import { WeatherCard } from '@/components/weathercard'
-import { NewsGrid } from '@/components/newsgrid'
-import { getPosts } from '../data'
-import Tags from '@/components/Tags'
+import { WeatherCard } from "@/components/weathercard";
+import { NewsGrid } from "@/components/newsgrid";
+import { getPosts } from "../data";
+import Tags from "@/components/Tags";
 
-async function Home() { 
-  const data = await getPosts()
+async function Home() {
+  const data = await getPosts();
   return (
     <>
-    <main className="mx-5 h-max">
-    <div className='flex pt-12 align-top'>
-    <div className='flex flex-col w-full mx-3  '>
-            <Grid data={data}/>
-            <h1 className="text-3xl font-semibold pb-3">Tags</h1>
-            <Tags/>
-    </div>     
-      <div className='flex flex-col self-start'>
-          <WeatherCard />
-      <div className='h-full w-80 py-2 mt-4 rounded-lg bg-neutral-400 flex flex-col align-middle items-center'>
-          <NewsGrid/>
-      </div>
-      </div>      
-    </div>
-    </main>
+      <main className="h-max bg-banner">
+        <div className="flex flex-col w-full bg-gradient-to-b from-transparent to-white ">
+          <h1 className="text-4xl text-white font-bold  p-8">My Feed</h1>
+          <Grid data={data} />
+        </div>
+      </main>
     </>
-  )
+  );
 }
 
-export default Home
-
+export default Home;

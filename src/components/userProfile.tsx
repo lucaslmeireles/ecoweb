@@ -34,7 +34,7 @@ export default function UserProfile() {
     }
     return (
         <Link href="/api/auth/signin">
-        <button className="bg-accent p-2 ml-2 rounded hover:shadow text-white ">Entrar</button>
+        <button className="bg-accent p-2 ml-2 rounded hover:shadow text-white">Entrar</button>
         </Link>
     )
 }

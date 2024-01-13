@@ -11,6 +11,7 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        banner: "url('/images/bg-banner.jpg')",
       },
       colors: {
         transparent: "transparent",
@@ -18,8 +19,8 @@ module.exports = {
         secondary: "#E9E9E9",
         accent: "#3A5A40",
         bg: "#DAD7CD",
-        "backgorund": "#e6e1ea",
-        "border": "#BBBBBB"
+        backgorund: "#e6e1ea",
+        border: "#BBBBBB",
       },
     },
   },
