@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-<<<<<<< HEAD
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { DeleteButton } from "./deleteButton";
-=======
-import {AiOutlineArrowRight} from 'react-icons/ai'
 import { DeleteButton } from "./button";
->>>>>>> c310e44e1ab0a9dd0d01e62aa553beb7d816cdfb
 import { GridCardProps } from "@/types/dataFunctions.type";
 
 export const GridCard = (data: GridCardProps) => {
