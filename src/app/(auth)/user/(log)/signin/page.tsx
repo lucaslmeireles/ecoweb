@@ -40,8 +40,6 @@ export default function Signup(){
                 <input type="email" name="email" id="email" />
                 <input type="password" name="password" id="password" />
                 <button type="submit">Enviar</button>
-
-                <p>nao tenho conta<a>entre aqui</a></p>
             </form>
         </>
     )

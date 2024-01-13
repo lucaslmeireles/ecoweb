@@ -26,7 +26,7 @@ export function DeleteButton({postId} : {postId: number}){
 
     }
     return (
-        <div className="bg-red-200 m-auto w-fit self-start  rounded-md align-middle hover:bg-red-500">
+        <div className="bg-neutral-100 m-auto w-fit self-start  rounded-md align-middle hover:bg-neutral-500">
                <button className="text-slate-900 p-2 text-xs hover:text-white" onClick={handleDelete} type="submit">
                    <AiFillDelete/>
                </button>
