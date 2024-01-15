@@ -37,10 +37,11 @@ export function WeatherCard() {
     status && (
       <div className="flex flex-row rounded-lg gap-2">
         <p className=" text-primary text-base font-medium">
-          {weatherData.city}{" "}
+          {weatherData.city}
+          {", "}
         </p>
         <p className=" text-primary text-base font-medium">
-          {weatherData.temp} ºC
+          {Math.round(weatherData.temp)} ºC
         </p>
       </div>
     )

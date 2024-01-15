@@ -13,7 +13,7 @@ export const GridCard = (data: GridCardProps) => {
         width={256}
         height={256}
         alt=""
-        className="h-full w-full object-cover opacity-70"
+        className="h-full w-full object-cover opacity-80"
       />
       <div className="flex justify-between align-middle items-center bottom-0 w-full h-16 absolute">
         {myposts && (
